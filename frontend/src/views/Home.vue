@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
-import teamPhoto from '/PP-4L.jpg?url'
 import logoImg from '/logo.png?url'
+import ppImg from '/img/pp.png?url'
 
 onMounted(() => {
   document.title = '4L des Dômes - Notre aventure au 4L Trophy 2026'
@@ -41,7 +41,7 @@ onMounted(() => {
         
         <div class="team-content">
           <div class="team-photo" data-aos="fade-right">
-            <img :src="teamPhoto" alt="Antoine et Bastien - 4L des Dômes">
+            <img :src="ppImg" alt="Antoine et Bastien - 4L des Dômes">
             <div class="photo-overlay">
               <div class="overlay-text">Antoine & Bastien</div>
             </div>
@@ -233,7 +233,17 @@ onMounted(() => {
             et notre aventure dans le désert !
           </p>
           <div class="follow-links">
-            <a href="https://linktr.ee/la4ldesdomes" target="_blank" rel="noopener noreferrer" class="follow-btn">
+            <a href="https://www.instagram.com/la4ldesdomes" target="_blank" rel="noopener noreferrer" class="follow-btn instagram-btn">
+              <span class="instagram-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </span>
+              <span>@la4ldesdomes</span>
+            </a>
+            <a href="https://linktr.ee/la4ldesdomes" target="_blank" rel="noopener noreferrer" class="follow-btn linktree-btn">
               <span class="follow-emoji">🌳</span>
               <span>Notre Linktree</span>
             </a>
@@ -720,6 +730,7 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .follow-btn {
@@ -727,17 +738,41 @@ onMounted(() => {
   align-items: center;
   gap: 12px;
   padding: 16px 32px;
-  background: linear-gradient(135deg, #43E97B 0%, #38F9D7 100%);
   color: white;
   text-decoration: none;
   border-radius: 50px;
   font-weight: 700;
   font-size: 18px;
   transition: all 0.3s ease;
+}
+
+.instagram-btn {
+  background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #F77737 100%);
+  box-shadow: 0 8px 20px rgba(131, 58, 180, 0.4);
+}
+
+.instagram-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(131, 58, 180, 0.6);
+}
+
+.instagram-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instagram-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.linktree-btn {
+  background: linear-gradient(135deg, #43E97B 0%, #38F9D7 100%);
   box-shadow: 0 8px 20px rgba(67, 233, 123, 0.4);
 }
 
-.follow-btn:hover {
+.linktree-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 12px 30px rgba(67, 233, 123, 0.6);
 }
