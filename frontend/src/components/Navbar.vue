@@ -9,8 +9,10 @@
         
         <div class="nav-links" :class="{ active: mobileMenuOpen }">
           <router-link to="/" @click="closeMobileMenu">Accueil</router-link>
-          <router-link to="/boutique" @click="closeMobileMenu">
-            Boutique
+          <router-link to="/boutique" @click="closeMobileMenu">Boutique</router-link>
+          <router-link to="/panier" class="cart-link" @click="closeMobileMenu">
+            <span>🛒</span>
+            Panier
             <span v-if="cartItemCount > 0" class="cart-badge">{{ cartItemCount }}</span>
           </router-link>
         </div>
@@ -140,6 +142,23 @@ const closeMobileMenu = () => {
   justify-content: center;
   font-size: 12px;
   font-weight: 700;
+}
+
+.cart-link {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white !important;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.cart-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.cart-link::after {
+  display: none;
 }
 
 .mobile-menu-btn {
