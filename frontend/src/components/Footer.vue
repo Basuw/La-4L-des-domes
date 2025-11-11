@@ -4,7 +4,7 @@
       <div class="footer-content">
         <div class="footer-section">
           <h3>4L des Dômes</h3>
-          <p>Notre aventure solidaire au 4L Trophy 2024</p>
+          <p>Notre aventure solidaire au 4L Trophy 2026</p>
         </div>
         
         <div class="footer-section">
@@ -24,7 +24,7 @@
       </div>
       
       <div class="footer-bottom">
-        <p>&copy; 2024 4L des Dômes - Tous droits réservés</p>
+        <p>&copy; 2026 4L des Dômes - Tous droits réservés</p>
       </div>
     </div>
   </footer>

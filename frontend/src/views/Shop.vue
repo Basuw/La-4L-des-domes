@@ -47,7 +47,6 @@
                 <h3>{{ product.name }}</h3>
               </router-link>
               <p class="product-description">{{ product.description }}</p>
-              
               <div class="product-details">
                 <span class="product-price">{{ formatPrice(product.price) }}</span>
               </div>

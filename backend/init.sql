@@ -39,5 +39,5 @@ CREATE TABLE order_items (
 
 -- Insert initial products with correct image URLs
 INSERT INTO products (name, description, price, stock, image_url, created_at) VALUES
-('T-shirt 4L Trophy - Landscape', 'T-shirt premium en coton bio, édition exclusive 4L des Dômes. Design unique inspiré du désert marocain. Fabriqué à Clermont-Ferrand.', 29.99, 50, '/t-shirt/front-t-shirt-landscape.png', CURRENT_TIMESTAMP),
-('T-shirt 4L Trophy - Sponsors', 'T-shirt sportswear respirant, parfait pour l''aventure. Collection 4L des Dômes avec logo brodé. Fabriqué à Clermont-Ferrand.', 34.99, 50, '/t-shirt/front-t-shirt-sponsor.png', CURRENT_TIMESTAMP);
+('T-shirt 4L Trophy - Landscape', 'T-shirt premium en coton bio, édition exclusive 4L des Dômes. Design unique inspiré du désert marocain. Fabriqué à Clermont-Ferrand.', 19.99, 100, '/t-shirt/front-t-shirt-landscape.png', CURRENT_TIMESTAMP),
+('T-shirt 4L Trophy - Sponsors', 'T-shirt premium en coton bio, parfait pour l''aventure. Collection 4L des Dômes avec logo brodé. Fabriqué à Clermont-Ferrand.', 19.99, 100, '/t-shirt/front-t-shirt-sponsor.png', CURRENT_TIMESTAMP);

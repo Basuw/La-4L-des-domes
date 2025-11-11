@@ -176,7 +176,7 @@ Deux t-shirts sont automatiquement créés au démarrage:
 - `DB_PORT`: Port PostgreSQL (défaut: 5432)
 - `DB_NAME`: Nom de la base (défaut: fourltroph)
 - `DB_USER`: Utilisateur PostgreSQL (défaut: fourltroph)
-- `DB_PASSWORD`: Mot de passe (défaut: fourltroph2024)
+- `DB_PASSWORD`: Mot de passe (défaut: fourltroph2026)
 - `JWT_SECRET`: Secret pour JWT
 - `CORS_ORIGINS`: Origines autorisées pour CORS
 - `SERVER_PORT`: Port du serveur (défaut: 8080)
@@ -214,8 +214,8 @@ MIT - Voir le fichier LICENSE pour plus de détails
 
 ## 👥 Équipe
 
-**4L des Dômes** - Équipe du 4L Trophy 2024
+**4L des Dômes** - Équipe du 4L Trophy 2026
 
 ---
 
-Fait avec ❤️ pour le 4L Trophy 2024
+Fait avec ❤️ pour le 4L Trophy 2026

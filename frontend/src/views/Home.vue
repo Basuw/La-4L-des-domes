@@ -6,7 +6,7 @@
           4L des Dômes
         </h1>
         <p class="hero-subtitle animate__animated animate__fadeInUp">
-          Notre aventure solidaire au 4L Trophy 2024
+          Notre aventure solidaire au 4L Trophy 2026
         </p>
         <router-link to="/boutique" class="btn btn-primary animate__animated animate__pulse animate__infinite">
           Soutenez notre projet
