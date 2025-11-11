@@ -278,9 +278,27 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
+  background-image: url('/img/4l.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.1;
+  filter: grayscale(100%) brightness(1.8);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.3), transparent 50%),
               radial-gradient(circle at 80% 50%, rgba(247, 147, 30, 0.3), transparent 50%);
   animation: pulse 4s ease-in-out infinite;
+  z-index: 1;
 }
 
 @keyframes pulse {
