@@ -49,7 +49,6 @@
               <p class="product-description">{{ product.description }}</p>
               
               <div class="product-details">
-                <span class="product-size">Taille: {{ product.size }}</span>
                 <span class="product-price">{{ formatPrice(product.price) }}</span>
               </div>
               
@@ -57,15 +56,6 @@
                 <router-link :to="`/produit/${product.id}`" class="btn btn-secondary view-details-btn">
                   Voir les détails
                 </router-link>
-                
-                <button 
-                  @click="addToCart(product)" 
-                  :disabled="product.stock === 0"
-                  class="btn btn-primary add-to-cart-btn"
-                >
-                  <span v-if="product.stock > 0">Panier</span>
-                  <span v-else>Indisponible</span>
-                </button>
               </div>
             </div>
           </div>
