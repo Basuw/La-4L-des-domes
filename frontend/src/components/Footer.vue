@@ -9,16 +9,14 @@
         
         <div class="footer-section">
           <h4>Contact</h4>
-          <p>Email: contact@4ldesdomes.fr</p>
-          <p>Tél: +33 6 XX XX XX XX</p>
+          <p>Email: la4ldesdomes@gmail.com</p>
+          <p>Tél: +33 6 52 42 33 11</p>
         </div>
         
         <div class="footer-section">
           <h4>Suivez-nous</h4>
           <div class="social-links">
-            <a href="#" class="social-link">Facebook</a>
-            <a href="#" class="social-link">Instagram</a>
-            <a href="#" class="social-link">Twitter</a>
+            <a href="https://www.instagram.com/la4ldesdomes/" class="social-link">Instagram</a>
           </div>
         </div>
       </div>
