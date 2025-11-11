@@ -386,9 +386,9 @@ onMounted(() => {
 }
 
 .product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 
