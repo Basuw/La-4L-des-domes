@@ -71,16 +71,16 @@
               :class="{ active: frontImage === '/t-shirt/front-t-shirt-landscape.png' }"
               @click="setImages('/t-shirt/front-t-shirt-landscape.png', '/t-shirt/back-t-shirt-landscape.png')"
             >
-              <img src="/t-shirt/front-t-shirt-landscape.png" alt="Édition Sable">
-              <span class="gallery-label">Sable</span>
+              <img src="/t-shirt/front-t-shirt-landscape.png" alt="Édition Paysage">
+              <span class="gallery-label">Paysage</span>
             </div>
             <div 
               class="gallery-item"
               :class="{ active: frontImage === '/t-shirt/front-t-shirt-sponsor.png' }"
               @click="setImages('/t-shirt/front-t-shirt-sponsor.png', '/t-shirt/back-t-shirt-sponsor.png')"
             >
-              <img src="/t-shirt/front-t-shirt-sponsor.png" alt="Édition Aventure">
-              <span class="gallery-label">Aventure</span>
+              <img src="/t-shirt/front-t-shirt-sponsor.png" alt="Édition Sponsors">
+              <span class="gallery-label">Sponsors</span>
             </div>
           </div>
         </div>
@@ -241,7 +241,7 @@ const loadProduct = async () => {
     const response = await productService.getProductById(route.params.id)
     product.value = response.data
     
-    if (product.value.name.includes('Sable') || product.value.name.includes('Paysage')) {
+    if (product.value.name.includes('landscape')) {
       frontImage.value = '/t-shirt/front-t-shirt-landscape.png'
       backImage.value = '/t-shirt/back-t-shirt-landscape.png'
     } else {

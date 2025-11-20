@@ -158,8 +158,8 @@ Le frontend sera disponible sur http://localhost:5173
 
 ### Initialisation
 Deux t-shirts sont automatiquement créés au démarrage:
-- T-Shirt 4L Trophy - Édition Sable (29.99€)
-- T-Shirt 4L Trophy - Édition Aventure (34.99€)
+- T-Shirt 4L Trophy - Édition Paysage (19.99€)
+- T-Shirt 4L Trophy - Édition Sponsor (19.99€)
 
 ## 🎨 Design
 
