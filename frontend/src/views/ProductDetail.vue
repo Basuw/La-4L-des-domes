@@ -65,24 +65,7 @@
             </div>
           </div>
 
-          <div class="product-gallery">
-            <div 
-              class="gallery-item"
-              :class="{ active: frontImage === '/t-shirt/front-t-shirt-landscape.png' }"
-              @click="setImages('/t-shirt/front-t-shirt-landscape.png', '/t-shirt/back-t-shirt-landscape.png')"
-            >
-              <img src="/t-shirt/front-t-shirt-landscape.png" alt="Édition Paysage">
-              <span class="gallery-label">Paysage</span>
-            </div>
-            <div 
-              class="gallery-item"
-              :class="{ active: frontImage === '/t-shirt/front-t-shirt-sponsor.png' }"
-              @click="setImages('/t-shirt/front-t-shirt-sponsor.png', '/t-shirt/back-t-shirt-sponsor.png')"
-            >
-              <img src="/t-shirt/front-t-shirt-sponsor.png" alt="Édition Sponsors">
-              <span class="gallery-label">Sponsors</span>
-            </div>
-          </div>
+
         </div>
 
         <div class="product-info" data-aos="fade-left">
@@ -226,10 +209,10 @@ const error = ref(null)
 const selectedSize = ref('')
 const quantity = ref(1)
 const rotation = ref(0)
-const autoRotate = ref(false)
+const autoRotate = ref(true)
 const showSuccessToast = ref(false)
-const frontImage = ref('/t-shirt/front-t-shirt-landscape.png')
-const backImage = ref('/t-shirt/back-t-shirt-landscape.png')
+const frontImage = ref('/t-shirt/front-t-shirt-landscape-no-background.png')
+const backImage = ref('/t-shirt/back-t-shirt-landscape-no-background.png')
 
 const sizes = ['XS', 'S', 'M', 'L', 'XL']
 let rotationInterval = null
@@ -241,12 +224,12 @@ const loadProduct = async () => {
     const response = await productService.getProductById(route.params.id)
     product.value = response.data
     
-    if (product.value.name.includes('landscape')) {
-      frontImage.value = '/t-shirt/front-t-shirt-landscape.png'
-      backImage.value = '/t-shirt/back-t-shirt-landscape.png'
-    } else {
-      frontImage.value = '/t-shirt/front-t-shirt-sponsor.png'
-      backImage.value = '/t-shirt/back-t-shirt-sponsor.png'
+    if (product.value.name.toLowerCase().includes('landscape')) {
+      frontImage.value = '/t-shirt/front-t-shirt-landscape-no-background.png'
+      backImage.value = '/t-shirt/back-t-shirt-landscape-no-background.png'
+    } else if (product.value.name.toLowerCase().includes('sponsor')) {
+      frontImage.value = '/t-shirt/front-t-shirt-sponsor-no-background.png'
+      backImage.value = '/t-shirt/back-t-shirt-sponsor-no-background.png'
     }
   } catch (err) {
     error.value = 'Produit introuvable'
@@ -308,12 +291,6 @@ const stopAutoRotate = () => {
   }
 }
 
-const setImages = (front, back) => {
-  frontImage.value = front
-  backImage.value = back
-  rotation.value = 0
-}
-
 const incrementQuantity = () => {
   if (quantity.value < product.value.stock) {
     quantity.value++
@@ -348,6 +325,7 @@ const addToCart = () => {
 onMounted(() => {
   loadProduct()
   document.title = 'Détails du produit - 4L des Dômes'
+  startAutoRotate()
 })
 
 onUnmounted(() => {
@@ -570,53 +548,6 @@ onUnmounted(() => {
   color: rgba(255, 255, 255, 0.8);
   font-size: 12px;
   font-weight: 600;
-}
-
-.product-gallery {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
-
-.gallery-item {
-  width: 120px;
-  height: 120px;
-  border-radius: 15px;
-  overflow: hidden;
-  cursor: pointer;
-  border: 3px solid transparent;
-  transition: all 0.3s ease;
-  background: white;
-  position: relative;
-}
-
-.gallery-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.gallery-item.active {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.gallery-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-  color: white;
-  padding: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-align: center;
 }
 
 .product-info {
@@ -990,15 +921,6 @@ onUnmounted(() => {
   
   .viewer-container {
     padding: 20px;
-  }
-  
-  .product-gallery {
-    flex-wrap: wrap;
-  }
-  
-  .gallery-item {
-    width: 100px;
-    height: 100px;
   }
 }
 </style>

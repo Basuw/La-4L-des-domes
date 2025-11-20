@@ -23,7 +23,7 @@ public class DataInitializer implements CommandLineRunner {
                     .price(new BigDecimal("19.99"))
                     .size("M")
                     .stock(50)
-                    .imageUrl("/t-shirt/front-t-shirt-landscape.png")
+                    .imageUrl("/t-shirt/front-t-shirt-landscape-no-background.png")
                     .build();
             
             Product tshirt2 = Product.builder()
@@ -32,7 +32,7 @@ public class DataInitializer implements CommandLineRunner {
                     .price(new BigDecimal("19.99"))
                     .size("L")
                     .stock(50)
-                    .imageUrl("/t-shirt/front-t-shirt-sponsor.png")
+                    .imageUrl("/t-shirt/front-t-shirt-sponsor-no-background.png")
                     .build();
             
             productRepository.save(tshirt1);
