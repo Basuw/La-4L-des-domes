@@ -124,12 +124,11 @@
 
           <button 
             @click="addToCart" 
-            :disabled="!selectedSize || product.stock === 0"
+            disabled
             class="btn btn-primary add-to-cart-main"
           >
-            <span class="btn-icon">🛒</span>
-            <span v-if="product.stock > 0">Ajouter au panier</span>
-            <span v-else>Rupture de stock</span>
+            <span class="btn-icon">🔒</span>
+            <span>Boutique fermée</span>
           </button>
 
           <div class="product-specs">

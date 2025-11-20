@@ -4,6 +4,31 @@
       <div class="container">
         <h1 class="animate__animated animate__fadeInDown">Boutique</h1>
         <p class="shop-subtitle">Soutenez notre projet en achetant nos t-shirts exclusifs</p>
+        
+        <div class="countdown-timer" data-aos="zoom-in">
+          <h2 class="countdown-title">Ouverture de la boutique dans :</h2>
+          <div class="timer-container">
+            <div class="time-block">
+              <div class="time-value">{{ countdown.days }}</div>
+              <div class="time-label">Jours</div>
+            </div>
+            <div class="time-separator">:</div>
+            <div class="time-block">
+              <div class="time-value">{{ countdown.hours }}</div>
+              <div class="time-label">Heures</div>
+            </div>
+            <div class="time-separator">:</div>
+            <div class="time-block">
+              <div class="time-value">{{ countdown.minutes }}</div>
+              <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-separator">:</div>
+            <div class="time-block">
+              <div class="time-value">{{ countdown.seconds }}</div>
+              <div class="time-label">Secondes</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -65,7 +90,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useCartStore } from '../stores/cart'
 import { productService } from '../services/api'
 
@@ -73,6 +98,16 @@ const cartStore = useCartStore()
 const products = ref([])
 const loading = ref(true)
 const error = ref(null)
+
+const endTime = new Date('2025-11-25T18:00:00').getTime()
+const countdown = ref({
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0
+})
+
+let countdownInterval = null
 
 const loadProducts = async () => {
   try {
@@ -103,9 +138,37 @@ const formatPrice = (price) => {
   }).format(price)
 }
 
+const updateCountdown = () => {
+  const now = new Date().getTime()
+  const distance = endTime - now
+
+  if (distance < 0) {
+    countdown.value = { days: 0, hours: 0, minutes: 0, seconds: 0 }
+    if (countdownInterval) {
+      clearInterval(countdownInterval)
+    }
+    return
+  }
+
+  countdown.value = {
+    days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+    minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((distance % (1000 * 60)) / 1000)
+  }
+}
+
 onMounted(() => {
   loadProducts()
   document.title = 'Boutique - 4L des Dômes'
+  updateCountdown()
+  countdownInterval = setInterval(updateCountdown, 1000)
+})
+
+onUnmounted(() => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval)
+  }
 })
 </script>
 
@@ -130,6 +193,73 @@ onMounted(() => {
 .shop-subtitle {
   font-size: 20px;
   opacity: 0.9;
+  margin-bottom: 40px;
+}
+
+.countdown-timer {
+  margin-top: 40px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.countdown-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.time-block {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  min-width: 100px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.time-block:hover {
+  transform: translateY(-5px);
+}
+
+.time-value {
+  font-size: 48px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.time-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.time-separator {
+  font-size: 48px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .products-section {
@@ -340,6 +470,37 @@ onMounted(() => {
 @media (max-width: 968px) {
   .products-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .countdown-timer {
+    padding: 20px;
+  }
+
+  .countdown-title {
+    font-size: 24px;
+  }
+
+  .timer-container {
+    gap: 10px;
+  }
+
+  .time-block {
+    min-width: 70px;
+    padding: 15px 10px;
+  }
+
+  .time-value {
+    font-size: 32px;
+  }
+
+  .time-label {
+    font-size: 10px;
+  }
+
+  .time-separator {
+    font-size: 32px;
   }
 }
 </style>
