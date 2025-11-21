@@ -217,11 +217,33 @@ const sizes = ['XS', 'S', 'M', 'L', 'XL']
 let rotationInterval = null
 
 const loadProduct = async () => {
-  try {
-    loading.value = true
-    error.value = null
-    const response = await productService.getProductById(route.params.id)
-    product.value = response.data
+  loading.value = true
+  
+  const products = [
+    {
+      id: 1,
+      name: "T-shirt 4L Trophy - Landscape",
+      description: "T-shirt premium en coton bio, édition exclusive 4L des Dômes. Design unique inspiré du désert marocain. Fabriqué à Clermont-Ferrand.",
+      price: 19.99,
+      size: "M",
+      stock: 50,
+      imageUrl: "/t-shirt/front-t-shirt-landscape-no-background.png"
+    },
+    {
+      id: 2,
+      name: "T-shirt 4L Trophy - Sponsors",
+      description: "T-shirt sportswear respirant, parfait pour l'aventure. Collection 4L des Dômes avec logo brodé. Fabriqué à Clermont-Ferrand.",
+      price: 19.99,
+      size: "L",
+      stock: 50,
+      imageUrl: "/t-shirt/front-t-shirt-sponsor-no-background.png"
+    }
+  ]
+  
+  const foundProduct = products.find(p => p.id === parseInt(route.params.id))
+  
+  if (foundProduct) {
+    product.value = foundProduct
     
     if (product.value.name.toLowerCase().includes('landscape')) {
       frontImage.value = '/t-shirt/front-t-shirt-landscape-no-background.png'
@@ -230,12 +252,11 @@ const loadProduct = async () => {
       frontImage.value = '/t-shirt/front-t-shirt-sponsor-no-background.png'
       backImage.value = '/t-shirt/back-t-shirt-sponsor-no-background.png'
     }
-  } catch (err) {
+  } else {
     error.value = 'Produit introuvable'
-    console.error('Error loading product:', err)
-  } finally {
-    loading.value = false
   }
+  
+  loading.value = false
 }
 
 const stockClass = computed(() => {

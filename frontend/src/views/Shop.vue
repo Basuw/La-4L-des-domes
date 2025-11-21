@@ -110,17 +110,28 @@ const countdown = ref({
 let countdownInterval = null
 
 const loadProducts = async () => {
-  try {
-    loading.value = true
-    error.value = null
-    const response = await productService.getAvailableProducts()
-    products.value = response.data
-  } catch (err) {
-    error.value = 'Erreur lors du chargement des produits. Veuillez réessayer.'
-    console.error('Error loading products:', err)
-  } finally {
-    loading.value = false
-  }
+  loading.value = true
+  products.value = [
+    {
+      id: 1,
+      name: "T-shirt 4L Trophy - Landscape",
+      description: "T-shirt premium en coton bio, édition exclusive 4L des Dômes. Design unique inspiré du désert marocain. Fabriqué à Clermont-Ferrand.",
+      price: 19.99,
+      size: "M",
+      stock: 50,
+      imageUrl: "/t-shirt/front-t-shirt-landscape-no-background.png"
+    },
+    {
+      id: 2,
+      name: "T-shirt 4L Trophy - Sponsors",
+      description: "T-shirt sportswear respirant, parfait pour l'aventure. Collection 4L des Dômes avec logo brodé. Fabriqué à Clermont-Ferrand.",
+      price: 19.99,
+      size: "L",
+      stock: 50,
+      imageUrl: "/t-shirt/front-t-shirt-sponsor-no-background.png"
+    }
+  ]
+  loading.value = false
 }
 
 const addToCart = (product) => {
