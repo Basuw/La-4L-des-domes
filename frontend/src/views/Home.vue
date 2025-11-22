@@ -815,8 +815,23 @@ onMounted(() => {
     font-size: 20px;
   }
   
+  .hero-dates {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+  
   .hero-actions {
     justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-actions .btn,
+  .hero-actions .btn-linktree {
+    width: 100%;
+    max-width: 300px;
+    font-size: 16px;
+    padding: 14px 28px;
   }
   
   .hero-logo {
@@ -827,6 +842,38 @@ onMounted(() => {
   
   .team-content {
     grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .team-section,
+  .project-section,
+  .solidarity-section,
+  .support-section {
+    padding: 60px 20px;
+  }
+  
+  .intro-text {
+    font-size: 16px;
+  }
+  
+  .member-card {
+    padding: 25px;
+  }
+  
+  .member-icon {
+    font-size: 40px;
+  }
+  
+  .card-icon-large {
+    font-size: 60px;
+  }
+  
+  .card-header h3 {
+    font-size: 28px;
+  }
+  
+  .card-body {
+    padding: 30px 25px;
   }
   
   .info-grid {
@@ -835,14 +882,141 @@ onMounted(() => {
   
   .solidarity-content {
     grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .solidarity-icon {
+    font-size: 60px;
+  }
+  
+  .solidarity-card h3 {
+    font-size: 24px;
+  }
+  
+  .stats-section {
+    padding: 60px 20px;
   }
   
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  
+  .stat-number {
+    font-size: 42px;
+  }
+  
+  .stat-label {
+    font-size: 16px;
   }
   
   .support-options {
     grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .support-card {
+    padding: 40px 30px;
+  }
+  
+  .support-icon {
+    font-size: 60px;
+  }
+  
+  .follow-content {
+    padding: 40px 30px;
+  }
+  
+  .follow-content h2 {
+    font-size: 32px;
+  }
+  
+  .follow-content p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+  
+  .hero-subtitle {
+    font-size: 18px;
+  }
+  
+  .hero-dates {
+    font-size: 16px;
+  }
+  
+  .hero-logo {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .team-section,
+  .project-section,
+  .solidarity-section,
+  .support-section {
+    padding: 40px 15px;
+  }
+  
+  .overlay-text {
+    font-size: 24px;
+  }
+  
+  .member-card {
+    padding: 20px;
+  }
+  
+  .member-card h4 {
+    font-size: 20px;
+  }
+  
+  .card-header {
+    padding: 30px 20px;
+  }
+  
+  .card-header h3 {
+    font-size: 24px;
+  }
+  
+  .card-body {
+    padding: 25px 20px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .stat-number {
+    font-size: 36px;
+  }
+  
+  .support-card {
+    padding: 30px 25px;
+  }
+  
+  .support-card h3 {
+    font-size: 24px;
+  }
+  
+  .follow-section {
+    padding: 60px 15px;
+  }
+  
+  .follow-content {
+    padding: 30px 20px;
+  }
+  
+  .follow-content h2 {
+    font-size: 28px;
+  }
+  
+  .follow-btn {
+    font-size: 16px;
+    padding: 14px 28px;
   }
 }
 </style>

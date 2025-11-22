@@ -635,23 +635,53 @@ onMounted(() => {
 }
 
 @media (max-width: 968px) {
+  .cart-hero {
+    padding: 60px 20px 40px;
+  }
+
+  .cart-hero h1 {
+    font-size: 42px;
+  }
+
+  .cart-subtitle {
+    font-size: 18px;
+  }
+
+  .cart-content-section {
+    padding: 60px 20px;
+  }
+
   .cart-content {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
   .cart-summary {
     position: static;
   }
 
+  .section-title {
+    font-size: 24px;
+  }
+
   .cart-item {
-    grid-template-columns: 80px 1fr 30px;
-    gap: 15px;
+    grid-template-columns: 100px 1fr 35px;
+    gap: 20px;
     padding: 20px;
   }
 
   .cart-item img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .cart-item-info h4 {
+    font-size: 18px;
+  }
+
+  .quantity-controls {
+    gap: 12px;
+    padding: 6px 12px;
   }
 
   .cart-item-price {
@@ -665,11 +695,126 @@ onMounted(() => {
   .remove-btn {
     width: 35px;
     height: 35px;
+    font-size: 18px;
+  }
+
+  .modal-content {
+    padding: 30px;
+    max-width: 90%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-hero h1 {
+    font-size: 36px;
+  }
+
+  .cart-item {
+    grid-template-columns: 80px 1fr 30px;
+    gap: 15px;
+    padding: 18px;
+  }
+
+  .cart-item img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .cart-item-info h4 {
     font-size: 16px;
   }
 
+  .quantity-controls {
+    gap: 10px;
+  }
+
+  .qty-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .remove-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .cart-summary h3 {
+    font-size: 20px;
+  }
+
+  .summary-line {
+    font-size: 14px;
+  }
+
+  .summary-line.total {
+    font-size: 24px;
+  }
+
+  .btn-block {
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-hero {
+    padding: 40px 15px 30px;
+  }
+
   .cart-hero h1 {
-    font-size: 40px;
+    font-size: 32px;
+  }
+
+  .cart-subtitle {
+    font-size: 16px;
+  }
+
+  .cart-content-section {
+    padding: 40px 15px;
+  }
+
+  .cart-item {
+    grid-template-columns: 70px 1fr 28px;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .cart-item img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .cart-item-info h4 {
+    font-size: 15px;
+  }
+
+  .item-size,
+  .item-price-mobile {
+    font-size: 13px;
+  }
+
+  .modal-content {
+    padding: 25px 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 22px;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 36px;
   }
 }
 </style>
