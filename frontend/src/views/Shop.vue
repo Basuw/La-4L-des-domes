@@ -338,8 +338,160 @@ onMounted(() => {
 }
 
 @media (max-width: 968px) {
+  .shop-hero {
+    padding: 60px 20px 40px;
+  }
+
+  .shop-hero h1 {
+    font-size: 42px;
+  }
+
+  .shop-subtitle {
+    font-size: 18px;
+  }
+
+  .products-section {
+    padding: 60px 20px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .countdown-timer {
+    padding: 25px;
+  }
+
+  .countdown-title {
+    font-size: 26px;
+  }
+
+  .timer-container {
+    gap: 12px;
+  }
+
+  .time-block {
+    min-width: 80px;
+    padding: 18px 15px;
+  }
+
+  .time-value {
+    font-size: 40px;
+  }
+
+  .time-label {
+    font-size: 12px;
+  }
+
+  .time-separator {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-hero h1 {
+    font-size: 36px;
+  }
+
   .products-grid {
     grid-template-columns: 1fr;
+  }
+
+  .countdown-timer {
+    padding: 20px;
+  }
+
+  .countdown-title {
+    font-size: 22px;
+  }
+
+  .timer-container {
+    gap: 8px;
+  }
+
+  .time-block {
+    min-width: 65px;
+    padding: 15px 10px;
+  }
+
+  .time-value {
+    font-size: 32px;
+  }
+
+  .time-label {
+    font-size: 10px;
+  }
+
+  .time-separator {
+    font-size: 32px;
+  }
+
+  .product-card {
+    border-radius: 15px;
+  }
+
+  .product-info {
+    padding: 20px;
+  }
+
+  .product-info h3 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-hero {
+    padding: 40px 15px 30px;
+  }
+
+  .shop-hero h1 {
+    font-size: 32px;
+  }
+
+  .shop-subtitle {
+    font-size: 16px;
+  }
+
+  .products-section {
+    padding: 40px 15px;
+  }
+
+  .countdown-timer {
+    padding: 15px;
+  }
+
+  .countdown-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .timer-container {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .time-block {
+    min-width: 60px;
+    padding: 12px 8px;
+  }
+
+  .time-value {
+    font-size: 28px;
+  }
+
+  .time-label {
+    font-size: 9px;
+  }
+
+  .time-separator {
+    font-size: 28px;
+  }
+
+  .time-separator:nth-child(5) {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
   }
 }
 </style>

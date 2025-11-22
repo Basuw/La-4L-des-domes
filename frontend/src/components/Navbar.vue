@@ -177,30 +177,85 @@ const closeMobileMenu = () => {
   transition: all 0.3s ease;
 }
 
-@media (max-width: 768px) {
-  .mobile-menu-btn {
-    display: flex;
+@media (max-width: 968px) {
+  .logo-img {
+    height: 45px;
+    width: 45px;
+  }
+  
+  .logo-text {
+    font-size: 20px;
   }
   
   .nav-links {
-    position: absolute;
-    top: 80px;
+    gap: 25px;
+  }
+  
+  .nav-links a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 0;
+  }
+
+  .logo-img {
+    height: 40px;
+    width: 40px;
+  }
+  
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    z-index: 100;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 70px;
     left: 0;
     right: 0;
     background: white;
     flex-direction: column;
     padding: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transform: translateY(-100%);
+    transform: translateY(-150%);
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s ease;
+    gap: 20px;
   }
   
   .nav-links.active {
     transform: translateY(0);
     opacity: 1;
     pointer-events: all;
+  }
+  
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+  }
+  
+  .cart-link {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 16px;
+  }
+  
+  .mobile-menu-btn span {
+    width: 22px;
   }
 }
 </style>

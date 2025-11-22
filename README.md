@@ -50,7 +50,7 @@ docker-compose up --build
 ```
 
 3. Accéder à l'application
-- **Frontend**: http://localhost:3000
+- **Frontend**: http://localhost:3080
 - **Backend API**: http://localhost:8080/api
 - **Base de données**: localhost:5432
 

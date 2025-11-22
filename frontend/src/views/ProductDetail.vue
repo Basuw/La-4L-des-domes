@@ -879,30 +879,105 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
   .product-content {
     grid-template-columns: 1fr;
-    padding: 30px;
+    padding: 35px;
     gap: 40px;
   }
   
   .product-benefits {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
   
   .tshirt-3d {
+    height: 450px;
+  }
+}
+
+@media (max-width: 968px) {
+  .product-detail {
+    padding: 30px 20px 70px;
+  }
+
+  .breadcrumb {
+    font-size: 13px;
+    margin-bottom: 30px;
+  }
+
+  .product-content {
+    padding: 30px;
+    gap: 35px;
+  }
+
+  .product-title {
+    font-size: 30px;
+  }
+
+  .price {
+    font-size: 36px;
+  }
+
+  .tshirt-3d {
     height: 400px;
+  }
+
+  .viewer-container {
+    padding: 30px;
+  }
+
+  .viewer-controls {
+    flex-wrap: wrap;
+  }
+
+  .view-btn {
+    flex: 1;
+    min-width: 100px;
+    justify-content: center;
+  }
+
+  .product-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .benefit-item {
+    justify-content: center;
+  }
+
+  .spec-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .spec-label {
+    min-width: auto;
+  }
+
+  .spec-value {
+    text-align: left;
   }
 }
 
 @media (max-width: 768px) {
   .product-detail {
-    padding: 20px 10px 60px;
+    padding: 20px 15px 60px;
   }
   
+  .breadcrumb {
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+
   .product-content {
-    padding: 20px;
+    padding: 25px 20px;
+    border-radius: 20px;
   }
   
   .product-title {
-    font-size: 28px;
+    font-size: 26px;
+  }
+
+  .product-price-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
   
   .price {
@@ -910,7 +985,20 @@ onUnmounted(() => {
   }
   
   .tshirt-3d {
-    height: 300px;
+    height: 350px;
+  }
+  
+  .viewer-container {
+    padding: 20px;
+  }
+
+  .view-btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  .view-btn .icon {
+    font-size: 18px;
   }
   
   .size-btn {
@@ -918,9 +1006,146 @@ onUnmounted(() => {
     height: 50px;
     font-size: 16px;
   }
-  
-  .viewer-container {
+
+  .qty-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .qty-input {
+    width: 70px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .add-to-cart-main {
+    padding: 16px;
+    font-size: 18px;
+  }
+
+  .selector-label {
+    font-size: 16px;
+  }
+
+  .selector-label .icon {
+    font-size: 20px;
+  }
+
+  .product-specs {
     padding: 20px;
+  }
+
+  .specs-title {
+    font-size: 18px;
+  }
+
+  .benefit-icon {
+    font-size: 28px;
+  }
+
+  .benefit-item strong {
+    font-size: 13px;
+  }
+
+  .benefit-item p {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-detail {
+    padding: 15px 10px 50px;
+  }
+
+  .product-content {
+    padding: 20px 15px;
+    border-radius: 15px;
+  }
+
+  .product-title {
+    font-size: 22px;
+  }
+
+  .price {
+    font-size: 28px;
+  }
+
+  .tshirt-3d {
+    height: 280px;
+  }
+
+  .viewer-container {
+    padding: 15px;
+  }
+
+  .view-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .view-btn .icon {
+    font-size: 16px;
+  }
+
+  .slider-labels {
+    font-size: 10px;
+  }
+
+  .size-selector,
+  .quantity-section {
+    padding: 15px;
+  }
+
+  .size-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 15px;
+  }
+
+  .qty-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .qty-input {
+    width: 60px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .add-to-cart-main {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .btn-icon {
+    font-size: 20px;
+  }
+
+  .product-specs {
+    padding: 18px;
+  }
+
+  .specs-title {
+    font-size: 16px;
+  }
+
+  .spec-item {
+    font-size: 13px;
+  }
+
+  .success-toast {
+    padding: 15px 30px;
+    font-size: 16px;
+  }
+
+  .toast-icon {
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
   }
 }
 </style>
