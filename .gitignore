@@ -32,3 +32,5 @@ frontend/dist/
 frontend/.vite/
 
 postgres_data/
+
+.vscode/
