@@ -203,17 +203,17 @@ const submitOrder = async () => {
       }))
     }
     
-    const response = await orderService.createOrder(orderData)
-    lastOrderId.value = response.data.id
+    await orderService.createOrder(orderData)
     
     cartStore.clearCart()
     showCheckoutForm.value = false
-    orderSuccess.value = true
     
     orderForm.customerName = ''
     orderForm.customerEmail = ''
     orderForm.customerPhone = ''
     orderForm.shippingAddress = ''
+    
+    window.location.href = 'https://www.helloasso.com/associations/la-4l-des-domes/formulaires/1'
   } catch (err) {
     alert('Erreur lors de la commande. Veuillez réessayer.')
     console.error('Error submitting order:', err)

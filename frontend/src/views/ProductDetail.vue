@@ -255,7 +255,7 @@ const productData = {
     id: 2,
     name: 'Pull 4L des Dômes',
     description: 'Pull confortable avec notre design exclusif. Idéal pour les soirées fraîches et pour afficher votre soutien !',
-    price: 35,
+    price: 40,
     stock: 100,
     colors: [
       { name: 'Beige', label: 'Beige', hex: '#D4C5B9', frontImage: '/clothes/front-beige-pull.png', backImage: '/clothes/back-beige-pull.png' },

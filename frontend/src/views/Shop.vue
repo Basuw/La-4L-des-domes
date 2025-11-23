@@ -103,7 +103,7 @@ const products = ref([
     id: 2,
     name: 'Pull 4L des Dômes',
     description: 'Pull confortable avec notre design exclusif',
-    price: 35,
+    price: 40,
     colors: [
       { name: 'Beige', label: 'Beige', hex: '#D4C5B9', preview: '/clothes/front-beige-pull.png' },
       { name: 'Blue', label: 'Bleu', hex: '#4A90E2', preview: '/clothes/front-blue-pull.png' }
