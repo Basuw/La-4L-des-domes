@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Shop from '../views/Shop.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import Cart from '../views/Cart.vue'
+import LegalNotice from '../views/LegalNotice.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/panier',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/mentions-legales',
+    name: 'LegalNotice',
+    component: LegalNotice
   }
 ]
 
