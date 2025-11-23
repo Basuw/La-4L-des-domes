@@ -51,8 +51,8 @@ onMounted(() => {
             <p class="intro-text">
               Nous sommes deux étudiants de Clermont-Ferrand en dernière année d'école d'ingénieur 
               en informatique à l'ISIMA. Animés par l'envie de vivre une aventure unique et de relever 
-              un défi à la fois technique, humain et solidaire, nous avons créé l'association pour 
-              partir au Maroc.
+              un défi à la fois technique, humain et solidaire, nous avons créé l'association La 4L des dômes pour 
+              partir au Maroc lors du 4L Trophy 2026.
             </p>
             
             <div class="member-cards">
@@ -61,18 +61,18 @@ onMounted(() => {
                 <h4>Antoine Imbert</h4>
                 <p class="member-age">23 ans</p>
                 <p>
-                  Passionné par l'automobile et la mécanique (karting, drift, préparation de véhicules). 
-                  Pratique quotidiennement la capoeira.
+                  Passionné par l'automobile et la mécanique (karting, drift, préparation de véhicules).
+                  Je pratique également la capoeira depuis une dizaine d'années.
                 </p>
               </div>
               
               <div class="member-card">
                 <div class="member-icon">🚒</div>
                 <h4>Bastien Jacquelin</h4>
-                <p class="member-age">21 ans</p>
+                <p class="member-age">22 ans</p>
                 <p>
-                  Passionné par le sport mécanique (notamment le Dakar). Sapeur-pompier volontaire 
-                  dans le Puy-de-Dôme, formé à la rigueur et l'esprit d'équipe.
+                  Passionné par le sport mécanique (24h du mans, Dakar) et également un grand fan de sport comme le volley ou encore la course à pied.
+                  Je suis également sapeur-pompier volontaire dans le Puy-de-Dôme.
                 </p>
               </div>
             </div>
