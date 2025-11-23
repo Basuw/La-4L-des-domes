@@ -10,13 +10,20 @@
         <div class="footer-section">
           <h4>Contact</h4>
           <p>Email: la4ldesdomes@gmail.com</p>
-          <p>Tél: +33 6 52 42 33 11</p>
         </div>
         
         <div class="footer-section">
           <h4>Suivez-nous</h4>
           <div class="social-links">
-            <a href="https://www.instagram.com/la4ldesdomes/" class="social-link">Instagram</a>
+            <a href="https://www.instagram.com/la4ldesdomes/" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
+            <a href="https://linktr.ee/la4ldesdomes" target="_blank" rel="noopener noreferrer" class="social-link">Linktree</a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4>Informations</h4>
+          <div class="footer-links">
+            <router-link to="/mentions-legales" class="footer-link">Mentions Légales</router-link>
           </div>
         </div>
       </div>
@@ -72,6 +79,22 @@
 }
 
 .social-link:hover {
+  color: var(--secondary-color);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
   color: var(--secondary-color);
 }
 
