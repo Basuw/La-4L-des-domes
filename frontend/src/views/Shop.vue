@@ -139,7 +139,7 @@ const products = ref([
 const loading = ref(false)
 const error = ref(null)
 
-const endTime = new Date('2025-11-25T18:00:00').getTime()
+const endTime = new Date('2025-11-28T18:00:00').getTime()
 const countdown = ref({
   days: 0,
   hours: 0,
