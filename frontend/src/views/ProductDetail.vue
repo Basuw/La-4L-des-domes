@@ -81,6 +81,32 @@
 
           <p class="product-description">{{ product.description }}</p>
 
+          <div class="color-selector">
+            <label class="selector-label">
+              <span class="icon">🎨</span>
+              Couleur
+            </label>
+            <div class="color-options">
+              <button 
+                v-for="color in product.colors" 
+                :key="color.name"
+                @click="selectedColor = color"
+                :class="{ active: selectedColor?.name === color.name }"
+                class="color-btn"
+                :title="color.label"
+              >
+                <div 
+                  class="color-circle"
+                  :style="{ 
+                    backgroundColor: color.hex,
+                    border: color.hex === '#FFFFFF' ? '2px solid #ddd' : 'none'
+                  }"
+                ></div>
+                <span class="color-name">{{ color.label }}</span>
+              </button>
+            </div>
+          </div>
+
           <div class="size-selector">
             <label class="selector-label">
               <span class="icon">📏</span>
@@ -124,7 +150,7 @@
 
           <button 
             @click="addToCart" 
-            :disabled="!selectedSize || product.stock === 0"
+            :disabled="!selectedSize || !selectedColor || product.stock === 0"
             class="btn btn-primary add-to-cart-main"
           >
             <span class="btn-icon">🛒</span>
@@ -207,30 +233,61 @@ const product = ref(null)
 const loading = ref(true)
 const error = ref(null)
 const selectedSize = ref('')
+const selectedColor = ref(null)
 const quantity = ref(1)
 const rotation = ref(0)
 const autoRotate = ref(true)
 const showSuccessToast = ref(false)
-const frontImage = ref('/t-shirt/front-t-shirt-landscape-no-background.png')
-const backImage = ref('/t-shirt/back-t-shirt-landscape-no-background.png')
 
-const sizes = ['XS', 'S', 'M', 'L', 'XL']
+const productData = {
+  1: {
+    id: 1,
+    name: 'T-shirt 4L des Dômes',
+    description: 'T-shirt en coton bio avec notre design exclusif. Confortable et résistant, parfait pour soutenir notre aventure !',
+    price: 25,
+    stock: 100,
+    colors: [
+      { name: 'White', label: 'Blanc', hex: '#FFFFFF', frontImage: '/clothes/front-white-t-shirt.png', backImage: '/clothes/back-white-t-shirt.png' },
+      { name: 'Black', label: 'Noir', hex: '#000000', frontImage: '/clothes/front-black-t-shirt.png', backImage: '/clothes/back-black-t-shirt.png' }
+    ]
+  },
+  2: {
+    id: 2,
+    name: 'Pull 4L des Dômes',
+    description: 'Pull confortable avec notre design exclusif. Idéal pour les soirées fraîches et pour afficher votre soutien !',
+    price: 35,
+    stock: 100,
+    colors: [
+      { name: 'Beige', label: 'Beige', hex: '#D4C5B9', frontImage: '/clothes/front-beige-pull.png', backImage: '/clothes/back-beige-pull.png' },
+      { name: 'Blue', label: 'Bleu', hex: '#4A90E2', frontImage: '/clothes/front-blue-pull.png', backImage: '/clothes/back-blue-pull.png' }
+    ]
+  }
+}
+
+const sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL']
 let rotationInterval = null
+
+const frontImage = computed(() => {
+  return selectedColor.value?.frontImage || product.value?.colors[0].frontImage
+})
+
+const backImage = computed(() => {
+  return selectedColor.value?.backImage || product.value?.colors[0].backImage
+})
 
 const loadProduct = async () => {
   try {
     loading.value = true
     error.value = null
-    const response = await productService.getProductById(route.params.id)
-    product.value = response.data
+    const productId = parseInt(route.params.id)
+    product.value = productData[productId]
     
-    if (product.value.name.toLowerCase().includes('landscape')) {
-      frontImage.value = '/t-shirt/front-t-shirt-landscape-no-background.png'
-      backImage.value = '/t-shirt/back-t-shirt-landscape-no-background.png'
-    } else if (product.value.name.toLowerCase().includes('sponsor')) {
-      frontImage.value = '/t-shirt/front-t-shirt-sponsor-no-background.png'
-      backImage.value = '/t-shirt/back-t-shirt-sponsor-no-background.png'
+    if (!product.value) {
+      error.value = 'Produit introuvable'
+      return
     }
+    
+    selectedColor.value = product.value.colors[0]
   } catch (err) {
     error.value = 'Produit introuvable'
     console.error('Error loading product:', err)
@@ -308,13 +365,12 @@ const addToCart = () => {
     alert('Veuillez sélectionner une taille')
     return
   }
-  
-  const productWithSize = {
-    ...product.value,
-    name: `${product.value.name} - Taille ${selectedSize.value}`
+  if (!selectedColor.value) {
+    alert('Veuillez sélectionner une couleur')
+    return
   }
   
-  cartStore.addToCart(productWithSize, quantity.value)
+  cartStore.addToCart(product.value, selectedColor.value, selectedSize.value, quantity.value)
   
   showSuccessToast.value = true
   setTimeout(() => {
@@ -638,6 +694,55 @@ onUnmounted(() => {
 
 .selector-label .icon {
   font-size: 22px;
+}
+
+.color-selector {
+  padding: 20px;
+  background: var(--light-color);
+  border-radius: 15px;
+}
+
+.color-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.color-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.color-btn:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.color-btn.active {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-color: var(--primary-color);
+  color: white;
+  transform: scale(1.05);
+}
+
+.color-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-name {
+  font-size: 14px;
 }
 
 .size-selector {

@@ -1,6 +1,8 @@
 package com.fourltroph.service;
 
+import com.fourltroph.dto.ColorResponse;
 import com.fourltroph.dto.ProductResponse;
+import com.fourltroph.entity.Color;
 import com.fourltroph.entity.Product;
 import com.fourltroph.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,10 +41,22 @@ public class ProductService {
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())
-                .size(product.getSize())
                 .stock(product.getStock())
-                .imageUrl(product.getImageUrl())
+                .colors(product.getColors().stream()
+                        .map(this::mapToColorResponse)
+                        .collect(Collectors.toList()))
                 .createdAt(product.getCreatedAt())
+                .build();
+    }
+    
+    private ColorResponse mapToColorResponse(Color color) {
+        return ColorResponse.builder()
+                .id(color.getId())
+                .name(color.getName())
+                .label(color.getLabel())
+                .hex(color.getHex())
+                .frontImage(color.getFrontImage())
+                .backImage(color.getBackImage())
                 .build();
     }
 }

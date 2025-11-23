@@ -23,15 +23,23 @@
             <h2 class="section-title" data-aos="fade-up">Articles ({{ cartStore.items.length }})</h2>
             
             <div 
-              v-for="item in cartStore.items" 
-              :key="item.product.id" 
+              v-for="(item, index) in cartStore.items" 
+              :key="`${item.product.id}-${item.color.name}-${item.size}`" 
               class="cart-item"
               data-aos="fade-right"
             >
-              <img :src="item.product.imageUrl || '/images/tshirt-placeholder.jpg'" :alt="item.product.name">
+              <img :src="item.color.frontImage" :alt="item.product.name">
               <div class="cart-item-info">
                 <h4>{{ item.product.name }}</h4>
-                <p class="item-size">Taille: {{ item.size }}</p>
+                <div class="item-details">
+                  <div class="color-info">
+                    <span class="color-circle" :style="{ backgroundColor: item.color.hex }"></span>
+                    <span>{{ item.color.label }}</span>
+                  </div>
+                  <div class="size-info">
+                    <span>Taille: {{ item.size }}</span>
+                  </div>
+                </div>
                 <p class="item-price-mobile">{{ formatPrice(item.product.price) }}</p>
                 
                 <div class="quantity-controls">
@@ -44,7 +52,7 @@
                 <div class="unit-price">{{ formatPrice(item.product.price) }} × {{ item.quantity }}</div>
                 <div class="total-price">{{ formatPrice(item.product.price * item.quantity) }}</div>
               </div>
-              <button @click="removeFromCart(item.product.id, item.size)" class="remove-btn" title="Supprimer">✕</button>
+              <button @click="removeFromCart(index)" class="remove-btn" title="Supprimer">✕</button>
             </div>
           </div>
           
@@ -156,17 +164,19 @@ const orderForm = reactive({
 })
 
 const incrementQuantity = (item) => {
-  cartStore.updateQuantity(item.product.id, item.size, item.quantity + 1)
+  const index = cartStore.items.indexOf(item)
+  cartStore.updateQuantity(index, item.quantity + 1)
 }
 
 const decrementQuantity = (item) => {
   if (item.quantity > 1) {
-    cartStore.updateQuantity(item.product.id, item.size, item.quantity - 1)
+    const index = cartStore.items.indexOf(item)
+    cartStore.updateQuantity(index, item.quantity - 1)
   }
 }
 
-const removeFromCart = (productId, size) => {
-  cartStore.removeFromCart(productId, size)
+const removeFromCart = (index) => {
+  cartStore.removeFromCart(index)
 }
 
 const formatPrice = (price) => {
@@ -187,7 +197,9 @@ const submitOrder = async () => {
       shippingAddress: orderForm.shippingAddress,
       items: cartStore.items.map(item => ({
         productId: item.product.id,
-        quantity: item.quantity
+        quantity: item.quantity,
+        size: item.size,
+        color: item.color.name
       }))
     }
     
@@ -328,6 +340,30 @@ onMounted(() => {
   font-size: 20px;
   color: var(--dark-color);
   margin: 0;
+}
+
+.item-details {
+  display: flex;
+  gap: 20px;
+  margin: 5px 0;
+}
+
+.color-info,
+.size-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+}
+
+.color-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  display: inline-block;
 }
 
 .item-size {

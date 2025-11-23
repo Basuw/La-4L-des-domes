@@ -43,5 +43,9 @@ public class OrderRequest {
         
         @Positive(message = "Quantity must be positive")
         private Integer quantity;
+        
+        private String size;
+        
+        private String color;
     }
 }
