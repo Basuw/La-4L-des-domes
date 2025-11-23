@@ -224,6 +224,95 @@ onMounted(() => {
       </div>
     </section>
 
+    <section class="sponsor-section">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">🤝 Devenez Sponsor</h2>
+        
+        <div class="sponsor-intro" data-aos="fade-up">
+          <p>
+            Vous êtes une entreprise ou un particulier souhaitant <strong>associer votre image à notre projet</strong> ? 
+            Devenez sponsor officiel de la 4L des Dômes et bénéficiez d'une visibilité unique !
+          </p>
+        </div>
+        
+        <div class="sponsor-cards">
+          <div class="sponsor-card sponsor-offer" data-aos="fade-up" data-aos-delay="100">
+            <div class="sponsor-card-header">
+              <div class="sponsor-emoji">🎁</div>
+              <h3>Ce que nous proposons</h3>
+            </div>
+            <ul class="sponsor-benefits">
+              <li>
+                <span class="benefit-icon">📱</span>
+                <div class="benefit-text">
+                  <strong>Visibilité sur les réseaux sociaux</strong>
+                  <p>Publications Instagram, TikTok et Facebook tout au long de l'aventure</p>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">🚗</span>
+                <div class="benefit-text">
+                  <strong>Logo sur notre 4L</strong>
+                  <p>Votre logo visible pendant tout le Trophy (6000 km à travers 3 pays)</p>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">🌐</span>
+                <div class="benefit-text">
+                  <strong>Présence sur notre site web</strong>
+                  <p>Mise en avant de votre entreprise</p>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">📸</span>
+                <div class="benefit-text">
+                  <strong>Communication complète</strong>
+                  <p>Avant, pendant et après le raid avec stories, posts et vidéos</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="sponsor-card sponsor-exchange" data-aos="fade-up" data-aos-delay="200">
+            <div class="sponsor-card-header">
+              <div class="sponsor-emoji">💼</div>
+              <h3>En échange</h3>
+            </div>
+            <ul class="sponsor-benefits">
+              <li>
+                <span class="benefit-icon">💰</span>
+                <div class="benefit-text">
+                  <strong>Soutien financier</strong>
+                  <p>Inscription, mécanique, assurance, carburant...</p>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">🎒</span>
+                <div class="benefit-text">
+                  <strong>Biens matériels</strong>
+                  <p>Équipement de voyage, pièces mécaniques, vêtements...</p>
+                </div>
+              </li>
+              <li>
+                <span class="benefit-icon">🔧</span>
+                <div class="benefit-text">
+                  <strong>Services</strong>
+                  <p>Hébergement, restauration, ateliers de préparation mécanique...</p>
+                </div>
+              </li>
+            </ul>
+            
+            <div class="sponsor-cta">
+              <a href="/sponsor/sponso-file.pdf" download class="btn btn-primary btn-download">
+                <span>📄</span>
+                <span>Télécharger le dossier</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="follow-section">
       <div class="container">
         <div class="follow-content" data-aos="flip-up">
@@ -654,6 +743,114 @@ onMounted(() => {
   opacity: 0.9;
 }
 
+.sponsor-section {
+  padding: 100px 20px;
+  background: white;
+}
+
+.sponsor-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 30px auto 60px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.sponsor-intro strong {
+  color: var(--primary-color);
+}
+
+.sponsor-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.sponsor-card {
+  background: white;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.sponsor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.sponsor-card-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  padding: 35px;
+  text-align: center;
+  color: white;
+}
+
+.sponsor-emoji {
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
+.sponsor-card-header h3 {
+  font-size: 28px;
+  color: white;
+  margin: 0;
+}
+
+.sponsor-benefits {
+  list-style: none;
+  padding: 40px;
+}
+
+.sponsor-benefits li {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sponsor-benefits li:last-child {
+  border-bottom: none;
+}
+
+.benefit-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.benefit-text {
+  flex: 1;
+}
+
+.benefit-text strong {
+  display: block;
+  font-size: 18px;
+  color: var(--dark-color);
+  margin-bottom: 5px;
+}
+
+.benefit-text p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.sponsor-cta {
+  padding: 0 40px 40px;
+}
+
+.btn-download {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  font-size: 17px;
+  padding: 18px 32px;
+}
+
 .support-section {
   padding: 100px 20px;
   background: #f8f9fa;
@@ -848,8 +1045,61 @@ onMounted(() => {
   .team-section,
   .project-section,
   .solidarity-section,
+  .sponsor-section,
   .support-section {
     padding: 60px 20px;
+  }
+
+  .sponsor-cards {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .sponsor-card-header {
+    padding: 30px 25px;
+  }
+
+  .sponsor-emoji {
+    font-size: 50px;
+  }
+
+  .sponsor-card-header h3 {
+    font-size: 24px;
+  }
+
+  .sponsor-benefits {
+    padding: 30px 25px;
+  }
+
+  .sponsor-benefits li {
+    padding: 15px 0;
+    gap: 15px;
+  }
+
+  .benefit-icon {
+    font-size: 28px;
+  }
+
+  .benefit-text strong {
+    font-size: 16px;
+  }
+
+  .benefit-text p {
+    font-size: 14px;
+  }
+
+  .sponsor-cta {
+    padding: 0 25px 30px;
+  }
+
+  .btn-download {
+    font-size: 16px;
+    padding: 16px 28px;
+  }
+
+  .support-options {
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
   
   .intro-text {
@@ -957,8 +1207,59 @@ onMounted(() => {
   .team-section,
   .project-section,
   .solidarity-section,
+  .sponsor-section,
   .support-section {
     padding: 40px 15px;
+  }
+
+  .sponsor-card-header {
+    padding: 25px 20px;
+  }
+
+  .sponsor-emoji {
+    font-size: 45px;
+  }
+
+  .sponsor-card-header h3 {
+    font-size: 22px;
+  }
+
+  .sponsor-benefits {
+    padding: 25px 20px;
+  }
+
+  .sponsor-benefits li {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+    gap: 10px;
+  }
+
+  .benefit-icon {
+    font-size: 36px;
+  }
+
+  .benefit-text strong {
+    font-size: 15px;
+  }
+
+  .benefit-text p {
+    font-size: 13px;
+  }
+
+  .sponsor-cta {
+    padding: 0 20px 25px;
+  }
+
+  .btn-download {
+    font-size: 15px;
+    padding: 14px 24px;
+  }
+
+  .support-options {
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
   
   .overlay-text {
