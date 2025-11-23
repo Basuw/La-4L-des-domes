@@ -48,6 +48,8 @@ public class OrderService {
                     .product(product)
                     .quantity(itemRequest.getQuantity())
                     .priceAtPurchase(product.getPrice())
+                    .size(itemRequest.getSize())
+                    .color(itemRequest.getColor())
                     .build();
             
             order.getItems().add(orderItem);
@@ -89,6 +91,8 @@ public class OrderService {
                                 .product(mapToProductResponse(item.getProduct()))
                                 .quantity(item.getQuantity())
                                 .priceAtPurchase(item.getPriceAtPurchase())
+                                .size(item.getSize())
+                                .color(item.getColor())
                                 .build())
                         .collect(Collectors.toList()))
                 .totalAmount(order.getTotalAmount())
@@ -103,9 +107,17 @@ public class OrderService {
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())
-                .size(product.getSize())
                 .stock(product.getStock())
-                .imageUrl(product.getImageUrl())
+                .colors(product.getColors().stream()
+                        .map(color -> com.fourltroph.dto.ColorResponse.builder()
+                                .id(color.getId())
+                                .name(color.getName())
+                                .label(color.getLabel())
+                                .hex(color.getHex())
+                                .frontImage(color.getFrontImage())
+                                .backImage(color.getBackImage())
+                                .build())
+                        .collect(Collectors.toList()))
                 .createdAt(product.getCreatedAt())
                 .build();
     }

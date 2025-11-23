@@ -34,5 +34,7 @@ public class OrderResponse {
         private ProductResponse product;
         private Integer quantity;
         private BigDecimal priceAtPurchase;
+        private String size;
+        private String color;
     }
 }

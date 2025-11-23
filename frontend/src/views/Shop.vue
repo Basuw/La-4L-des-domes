@@ -53,7 +53,7 @@
           >
             <router-link :to="`/produit/${product.id}`" class="product-image-link">
               <div class="product-image">
-                <img :src="product.imageUrl || '/images/tshirt-placeholder.jpg'" :alt="product.name">
+                <img :src="product.colors[0].preview" :alt="product.name">
                 <div class="view-details-overlay">
                   <span class="view-icon">👁️</span>
                   <span>Voir les détails</span>
@@ -72,6 +72,23 @@
                 <h3>{{ product.name }}</h3>
               </router-link>
               <p class="product-description">{{ product.description }}</p>
+              
+              <div class="color-preview">
+                <span class="color-label">Couleurs disponibles :</span>
+                <div class="color-swatches">
+                  <div 
+                    v-for="color in product.colors" 
+                    :key="color.name"
+                    class="color-swatch"
+                    :style="{ 
+                      backgroundColor: color.hex,
+                      border: color.hex === '#FFFFFF' ? '2px solid #ddd' : 'none'
+                    }"
+                    :title="color.label"
+                  ></div>
+                </div>
+              </div>
+
               <div class="product-details">
                 <span class="product-price">{{ formatPrice(product.price) }}</span>
               </div>
@@ -95,8 +112,31 @@ import { useCartStore } from '../stores/cart'
 import { productService } from '../services/api'
 
 const cartStore = useCartStore()
-const products = ref([])
-const loading = ref(true)
+const products = ref([
+  {
+    id: 1,
+    name: 'T-shirt 4L des Dômes',
+    description: 'T-shirt en coton bio avec notre design exclusif',
+    price: 25,
+    colors: [
+      { name: 'White', label: 'Blanc', hex: '#FFFFFF', preview: '/clothes/front-white-t-shirt.png' },
+      { name: 'Black', label: 'Noir', hex: '#000000', preview: '/clothes/front-black-t-shirt.png' }
+    ],
+    stock: 100
+  },
+  {
+    id: 2,
+    name: 'Pull 4L des Dômes',
+    description: 'Pull confortable avec notre design exclusif',
+    price: 40,
+    colors: [
+      { name: 'Beige', label: 'Beige', hex: '#D4C5B9', preview: '/clothes/front-beige-pull.png' },
+      { name: 'Blue', label: 'Bleu', hex: '#4A90E2', preview: '/clothes/front-blue-pull.png' }
+    ],
+    stock: 100
+  }
+])
+const loading = ref(false)
 const error = ref(null)
 
 const endTime = new Date('2025-11-25T18:00:00').getTime()
@@ -108,39 +148,6 @@ const countdown = ref({
 })
 
 let countdownInterval = null
-
-const loadProducts = async () => {
-  loading.value = true
-  products.value = [
-    {
-      id: 1,
-      name: "T-shirt 4L Trophy - Landscape",
-      description: "T-shirt premium en coton bio, édition exclusive 4L des Dômes. Design unique inspiré du désert marocain. Fabriqué à Clermont-Ferrand.",
-      price: 19.99,
-      size: "M",
-      stock: 50,
-      imageUrl: "/t-shirt/front-t-shirt-landscape-no-background.png"
-    },
-    {
-      id: 2,
-      name: "T-shirt 4L Trophy - Sponsors",
-      description: "T-shirt sportswear respirant, parfait pour l'aventure. Collection 4L des Dômes avec logo brodé. Fabriqué à Clermont-Ferrand.",
-      price: 19.99,
-      size: "L",
-      stock: 50,
-      imageUrl: "/t-shirt/front-t-shirt-sponsor-no-background.png"
-    }
-  ]
-  loading.value = false
-}
-
-const addToCart = (product) => {
-  cartStore.addToCart(product, 1)
-  
-  const card = event.target.closest('.product-card')
-  card.classList.add('added-to-cart')
-  setTimeout(() => card.classList.remove('added-to-cart'), 500)
-}
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat('fr-FR', {
@@ -170,7 +177,6 @@ const updateCountdown = () => {
 }
 
 onMounted(() => {
-  loadProducts()
   document.title = 'Boutique - 4L des Dômes'
   updateCountdown()
   countdownInterval = setInterval(updateCountdown, 1000)
@@ -419,8 +425,40 @@ onUnmounted(() => {
 .product-description {
   color: #666;
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-size: 14px;
+}
+
+.color-preview {
+  margin-bottom: 15px;
+  padding: 12px 0;
+}
+
+.color-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.color-swatches {
+  display: flex;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.color-swatch:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .product-details {

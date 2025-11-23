@@ -1,5 +1,6 @@
 package com.fourltroph.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -31,12 +34,12 @@ public class Product {
     private BigDecimal price;
     
     @Column(nullable = false)
-    private String size;
-    
-    @Column(nullable = false)
     private Integer stock;
     
-    private String imageUrl;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @Builder.Default
+    private List<Color> colors = new ArrayList<>();
     
     @Column(nullable = false)
     private LocalDateTime createdAt;

@@ -23,15 +23,23 @@
             <h2 class="section-title" data-aos="fade-up">Articles ({{ cartStore.items.length }})</h2>
             
             <div 
-              v-for="item in cartStore.items" 
-              :key="item.product.id" 
+              v-for="(item, index) in cartStore.items" 
+              :key="`${item.product.id}-${item.color.name}-${item.size}`" 
               class="cart-item"
               data-aos="fade-right"
             >
-              <img :src="item.product.imageUrl || '/images/tshirt-placeholder.jpg'" :alt="item.product.name">
+              <img :src="item.color.frontImage" :alt="item.product.name">
               <div class="cart-item-info">
                 <h4>{{ item.product.name }}</h4>
-                <p class="item-size">Taille: {{ item.size }}</p>
+                <div class="item-details">
+                  <div class="color-info">
+                    <span class="color-circle" :style="{ backgroundColor: item.color.hex }"></span>
+                    <span>{{ item.color.label }}</span>
+                  </div>
+                  <div class="size-info">
+                    <span>Taille: {{ item.size }}</span>
+                  </div>
+                </div>
                 <p class="item-price-mobile">{{ formatPrice(item.product.price) }}</p>
                 
                 <div class="quantity-controls">
@@ -44,7 +52,7 @@
                 <div class="unit-price">{{ formatPrice(item.product.price) }} × {{ item.quantity }}</div>
                 <div class="total-price">{{ formatPrice(item.product.price * item.quantity) }}</div>
               </div>
-              <button @click="removeFromCart(item.product.id, item.size)" class="remove-btn" title="Supprimer">✕</button>
+              <button @click="removeFromCart(index)" class="remove-btn" title="Supprimer">✕</button>
             </div>
           </div>
           
@@ -123,12 +131,22 @@
       </div>
     </div>
 
-    <div v-if="orderSuccess" class="modal" @click.self="orderSuccess = false">
+    <div v-if="showPaymentRedirect" class="modal">
+      <div class="modal-content success-modal" data-aos="zoom-in">
+        <div class="success-icon">💳</div>
+        <h2>Commande enregistrée !</h2>
+        <p class="order-number">Numéro de commande: #{{ lastOrderId }}</p>
+        <p class="payment-info">Vous allez être redirigé vers HelloAsso pour procéder au paiement.</p>
+        <p class="payment-warning">Merci de choisir un montant <strong>supérieur ou égal à {{ formatPrice(cartStore.totalAmount) }}</strong></p>
+        <button @click="redirectToPayment" class="btn btn-primary">Procéder au paiement</button>
+      </div>
+    </div>
+
+    <div v-if="orderSuccess" class="modal">
       <div class="modal-content success-modal" data-aos="zoom-in">
         <div class="success-icon">✓</div>
-        <h2>Commande confirmée !</h2>
-        <p>Merci pour votre soutien ! Vous recevrez un email de confirmation à {{ orderForm.customerEmail }}</p>
-        <p class="order-number">Numéro de commande: #{{ lastOrderId }}</p>
+        <h2>Commande bien prise en compte !</h2>
+        <p>Merci pour votre soutien ! Vous recevrez un email de confirmation.</p>
         <button @click="closeSuccessModal" class="btn btn-primary">Fermer</button>
       </div>
     </div>
@@ -146,6 +164,7 @@ const cartStore = useCartStore()
 const showCheckoutForm = ref(false)
 const submitting = ref(false)
 const orderSuccess = ref(false)
+const showPaymentRedirect = ref(false)
 const lastOrderId = ref(null)
 
 const orderForm = reactive({
@@ -156,17 +175,19 @@ const orderForm = reactive({
 })
 
 const incrementQuantity = (item) => {
-  cartStore.updateQuantity(item.product.id, item.size, item.quantity + 1)
+  const index = cartStore.items.indexOf(item)
+  cartStore.updateQuantity(index, item.quantity + 1)
 }
 
 const decrementQuantity = (item) => {
   if (item.quantity > 1) {
-    cartStore.updateQuantity(item.product.id, item.size, item.quantity - 1)
+    const index = cartStore.items.indexOf(item)
+    cartStore.updateQuantity(index, item.quantity - 1)
   }
 }
 
-const removeFromCart = (productId, size) => {
-  cartStore.removeFromCart(productId, size)
+const removeFromCart = (index) => {
+  cartStore.removeFromCart(index)
 }
 
 const formatPrice = (price) => {
@@ -187,21 +208,17 @@ const submitOrder = async () => {
       shippingAddress: orderForm.shippingAddress,
       items: cartStore.items.map(item => ({
         productId: item.product.id,
-        quantity: item.quantity
+        quantity: item.quantity,
+        size: item.size,
+        color: item.color.name
       }))
     }
     
     const response = await orderService.createOrder(orderData)
     lastOrderId.value = response.data.id
     
-    cartStore.clearCart()
     showCheckoutForm.value = false
-    orderSuccess.value = true
-    
-    orderForm.customerName = ''
-    orderForm.customerEmail = ''
-    orderForm.customerPhone = ''
-    orderForm.shippingAddress = ''
+    showPaymentRedirect.value = true
   } catch (err) {
     alert('Erreur lors de la commande. Veuillez réessayer.')
     console.error('Error submitting order:', err)
@@ -210,10 +227,23 @@ const submitOrder = async () => {
   }
 }
 
+const redirectToPayment = () => {
+  window.open('https://www.helloasso.com/associations/la-4l-des-domes/formulaires/1', '_blank')
+  showPaymentRedirect.value = false
+  orderSuccess.value = true
+}
+
 const closeSuccessModal = () => {
   orderSuccess.value = false
+  cartStore.clearCart()
+  orderForm.customerName = ''
+  orderForm.customerEmail = ''
+  orderForm.customerPhone = ''
+  orderForm.shippingAddress = ''
   router.push('/boutique')
 }
+
+
 
 onMounted(() => {
   document.title = 'Mon Panier - 4L des Dômes'
@@ -328,6 +358,30 @@ onMounted(() => {
   font-size: 20px;
   color: var(--dark-color);
   margin: 0;
+}
+
+.item-details {
+  display: flex;
+  gap: 20px;
+  margin: 5px 0;
+}
+
+.color-info,
+.size-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+}
+
+.color-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  display: inline-block;
 }
 
 .item-size {
@@ -632,6 +686,27 @@ onMounted(() => {
   border-radius: 10px;
   margin: 20px 0;
   font-weight: 600;
+}
+
+.payment-info {
+  font-size: 16px;
+  color: #666;
+  margin: 15px 0 10px;
+}
+
+.payment-warning {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0 25px;
+  font-size: 15px;
+  color: #856404;
+}
+
+.payment-warning strong {
+  color: var(--primary-color);
+  font-size: 18px;
 }
 
 @media (max-width: 968px) {
