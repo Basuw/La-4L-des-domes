@@ -131,12 +131,22 @@
       </div>
     </div>
 
-    <div v-if="orderSuccess" class="modal" @click.self="orderSuccess = false">
+    <div v-if="showPaymentRedirect" class="modal">
+      <div class="modal-content success-modal" data-aos="zoom-in">
+        <div class="success-icon">💳</div>
+        <h2>Commande enregistrée !</h2>
+        <p class="order-number">Numéro de commande: #{{ lastOrderId }}</p>
+        <p class="payment-info">Vous allez être redirigé vers HelloAsso pour procéder au paiement.</p>
+        <p class="payment-warning">Merci de choisir un montant <strong>supérieur ou égal à {{ formatPrice(cartStore.totalAmount) }}</strong></p>
+        <button @click="redirectToPayment" class="btn btn-primary">Procéder au paiement</button>
+      </div>
+    </div>
+
+    <div v-if="orderSuccess" class="modal">
       <div class="modal-content success-modal" data-aos="zoom-in">
         <div class="success-icon">✓</div>
-        <h2>Commande confirmée !</h2>
-        <p>Merci pour votre soutien ! Vous recevrez un email de confirmation à {{ orderForm.customerEmail }}</p>
-        <p class="order-number">Numéro de commande: #{{ lastOrderId }}</p>
+        <h2>Commande bien prise en compte !</h2>
+        <p>Merci pour votre soutien ! Vous recevrez un email de confirmation.</p>
         <button @click="closeSuccessModal" class="btn btn-primary">Fermer</button>
       </div>
     </div>
@@ -154,6 +164,7 @@ const cartStore = useCartStore()
 const showCheckoutForm = ref(false)
 const submitting = ref(false)
 const orderSuccess = ref(false)
+const showPaymentRedirect = ref(false)
 const lastOrderId = ref(null)
 
 const orderForm = reactive({
@@ -203,17 +214,11 @@ const submitOrder = async () => {
       }))
     }
     
-    await orderService.createOrder(orderData)
+    const response = await orderService.createOrder(orderData)
+    lastOrderId.value = response.data.id
     
-    cartStore.clearCart()
     showCheckoutForm.value = false
-    
-    orderForm.customerName = ''
-    orderForm.customerEmail = ''
-    orderForm.customerPhone = ''
-    orderForm.shippingAddress = ''
-    
-    window.location.href = 'https://www.helloasso.com/associations/la-4l-des-domes/formulaires/1'
+    showPaymentRedirect.value = true
   } catch (err) {
     alert('Erreur lors de la commande. Veuillez réessayer.')
     console.error('Error submitting order:', err)
@@ -222,10 +227,23 @@ const submitOrder = async () => {
   }
 }
 
+const redirectToPayment = () => {
+  window.open('https://www.helloasso.com/associations/la-4l-des-domes/formulaires/1', '_blank')
+  showPaymentRedirect.value = false
+  orderSuccess.value = true
+}
+
 const closeSuccessModal = () => {
   orderSuccess.value = false
+  cartStore.clearCart()
+  orderForm.customerName = ''
+  orderForm.customerEmail = ''
+  orderForm.customerPhone = ''
+  orderForm.shippingAddress = ''
   router.push('/boutique')
 }
+
+
 
 onMounted(() => {
   document.title = 'Mon Panier - 4L des Dômes'
@@ -668,6 +686,27 @@ onMounted(() => {
   border-radius: 10px;
   margin: 20px 0;
   font-weight: 600;
+}
+
+.payment-info {
+  font-size: 16px;
+  color: #666;
+  margin: 15px 0 10px;
+}
+
+.payment-warning {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0 25px;
+  font-size: 15px;
+  color: #856404;
+}
+
+.payment-warning strong {
+  color: var(--primary-color);
+  font-size: 18px;
 }
 
 @media (max-width: 968px) {
