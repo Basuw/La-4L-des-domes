@@ -41,6 +41,7 @@ public class DataInitializer implements CommandLineRunner {
                 .description("T-shirt officiel du 4L Trophy avec le logo emblématique")
                 .price(new BigDecimal("25.00"))
                 .stock(100)
+                .size("M")
                 .colors(new ArrayList<>())
                 .build();
         
@@ -71,6 +72,7 @@ public class DataInitializer implements CommandLineRunner {
                 .description("Pull confortable aux couleurs du 4L Trophy")
                 .price(new BigDecimal("45.00"))
                 .stock(50)
+                .size("L")
                 .colors(new ArrayList<>())
                 .build();
         
