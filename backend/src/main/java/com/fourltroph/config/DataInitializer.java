@@ -4,6 +4,7 @@ import com.fourltroph.entity.Color;
 import com.fourltroph.entity.Product;
 import com.fourltroph.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
@@ -19,9 +21,17 @@ public class DataInitializer implements CommandLineRunner {
     
     @Override
     public void run(String... args) {
-        // Supprimer les produits existants et réinitialiser
-        productRepository.deleteAll();
-        initializeProducts();
+        try {
+            if (productRepository.count() == 0) {
+                log.info("Initializing products data...");
+                initializeProducts();
+                log.info("Products data initialized successfully");
+            } else {
+                log.info("Products already exist, skipping initialization");
+            }
+        } catch (Exception e) {
+            log.error("Error initializing products data", e);
+        }
     }
     
     private void initializeProducts() {
