@@ -19,9 +19,9 @@ public class DataInitializer implements CommandLineRunner {
     
     @Override
     public void run(String... args) {
-        if (productRepository.count() == 0) {
-            initializeProducts();
-        }
+        // Supprimer les produits existants et réinitialiser
+        productRepository.deleteAll();
+        initializeProducts();
     }
     
     private void initializeProducts() {
