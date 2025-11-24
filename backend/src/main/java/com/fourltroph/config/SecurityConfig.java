@@ -25,9 +25,9 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/products/**").permitAll()  // Public access to products
-                .requestMatchers("/api/auth/**").permitAll()      // Public access to auth
-                .requestMatchers("/api/orders/**").permitAll()    // Public access to orders
+                .requestMatchers("/api/**").permitAll()           // Public access to all API endpoints
+                .requestMatchers("/").permitAll()                 // Public access to root
+                .requestMatchers("/actuator/health").permitAll()  // Public access to health check
                 .anyRequest().authenticated()                      // Other endpoints require auth
             )
             .exceptionHandling(ex -> ex
@@ -46,7 +46,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
     
