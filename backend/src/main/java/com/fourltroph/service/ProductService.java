@@ -42,6 +42,7 @@ public class ProductService {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .stock(product.getStock())
+                .size(product.getSize())
                 .colors(product.getColors().stream()
                         .map(this::mapToColorResponse)
                         .collect(Collectors.toList()))
