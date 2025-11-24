@@ -72,7 +72,7 @@ public class DataInitializer implements CommandLineRunner {
         Product pull = Product.builder()
                 .name("Pull 4L Trophy")
                 .description("Pull confortable aux couleurs du 4L Trophy")
-                .price(new BigDecimal("45.00"))
+                .price(new BigDecimal("40.00"))
                 .stock(50)
                 .size("L")
                 .colors(new ArrayList<>())
