@@ -26,6 +26,8 @@ spring:
 
 server:
   port: ${SERVER_PORT:8001}
+  servlet:
+    context-path: ${CONTEXT_PATH:/}
   error:
     include-message: always
 
