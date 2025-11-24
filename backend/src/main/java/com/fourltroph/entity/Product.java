@@ -36,6 +36,8 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
     
+    private String size;
+    
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     @Builder.Default

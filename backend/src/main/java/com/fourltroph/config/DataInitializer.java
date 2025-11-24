@@ -27,7 +27,7 @@ public class DataInitializer implements CommandLineRunner {
                 initializeProducts();
                 log.info("Products data initialized successfully");
             } else {
-                log.info("Products already exist, skipping initialization");
+                log.info("Products already exist (count: {}), skipping initialization", productRepository.count());
             }
         } catch (Exception e) {
             log.error("Error initializing products data", e);

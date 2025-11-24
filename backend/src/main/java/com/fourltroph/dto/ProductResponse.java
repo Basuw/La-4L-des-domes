@@ -19,6 +19,7 @@ public class ProductResponse {
     private String description;
     private BigDecimal price;
     private Integer stock;
+    private String size;
     private List<ColorResponse> colors;
     private LocalDateTime createdAt;
 }
