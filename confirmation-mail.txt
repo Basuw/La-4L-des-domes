@@ -1,0 +1,34 @@
+Objet : Confirmation de votre commande - La 4L des Dômes 🚗
+
+Bonjour [NOM_CLIENT],
+
+Merci pour votre commande et votre soutien au projet La 4L des Dômes ! 🎉
+
+Nous avons bien reçu votre commande n°[NUMERO_COMMANDE] d'un montant de [MONTANT_TOTAL]€.
+
+📦 DÉTAILS DE VOTRE COMMANDE :
+T-shirt 4L des Dômes - Blanc en taille L
+Pull 4L des Dômes - Bleu en taille L
+
+📍 ADRESSE DE LIVRAISON :
+[ADRESSE_COMPLETE]
+
+💳 STATUT DU PAIEMENT :
+Votre paiement via HelloAsso a bien été enregistré.
+
+🚚 INFORMATIONS DE LIVRAISON :
+Les commandes partiront en production début janvier.
+La livraison est prévue pour fin janvier / début février 2025.
+Nous vous tiendrons informé par email de l'avancement de votre commande à chaque étape.
+
+📧 BESOIN D'AIDE ?
+Si vous avez des questions concernant votre commande, n'hésitez pas à nous contacter en répondant directement à cet email.
+
+Encore merci pour votre confiance et votre contribution à notre projet !
+
+Sportivement,
+L'équipe La 4L des Dômes
+
+---
+La 4L des Dômes - Raid 4L Trophy 2025
+Site web : https://la4ldesdomes.bastien-jacquelin.fr

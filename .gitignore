@@ -33,4 +33,8 @@ frontend/.vite/
 
 postgres_data/
 
+# Backups de la base de données
+backups/*.sql.gz
+backups/*.log
+
 .vscode/

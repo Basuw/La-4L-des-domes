@@ -119,12 +119,12 @@
           </div>
           
           <div class="form-actions">
+            <button type="submit" :disabled="submitting" class="btn btn-primary">
+              <span v-if="!submitting">Valider les informations</span>
+              <span v-else>Vérification...</span>
+            </button>
             <button type="button" @click="showCheckoutForm = false" class="btn btn-secondary">
               Annuler
-            </button>
-            <button type="submit" :disabled="submitting" class="btn btn-primary">
-              <span v-if="!submitting">Confirmer la commande</span>
-              <span v-else>Envoi en cours...</span>
             </button>
           </div>
         </form>
@@ -134,11 +134,29 @@
     <div v-if="showPaymentRedirect" class="modal">
       <div class="modal-content success-modal" data-aos="zoom-in">
         <div class="success-icon">💳</div>
-        <h2>Commande enregistrée !</h2>
-        <p class="order-number">Numéro de commande: #{{ lastOrderId }}</p>
-        <p class="payment-info">Vous allez être redirigé vers HelloAsso pour procéder au paiement.</p>
+        <h2>Récapitulatif de votre commande</h2>
+        <div class="order-summary-details">
+          <p><strong>Nom :</strong> {{ orderForm.customerName }}</p>
+          <p><strong>Email :</strong> {{ orderForm.customerEmail }}</p>
+          <p><strong>Téléphone :</strong> {{ orderForm.customerPhone }}</p>
+          <p><strong>Adresse :</strong> {{ orderForm.shippingAddress }}</p>
+          <p><strong>Montant total :</strong> {{ formatPrice(cartStore.totalAmount) }}</p>
+        </div>
+        <div class="delivery-info">
+          <p><strong>📦 Informations de livraison :</strong></p>
+          <p>Les commandes partiront en production début janvier.</p>
+          <p>La livraison est prévue pour <strong>fin janvier / début février</strong>.</p>
+          <p>Vous serez tenu au courant par email de l'avancement de votre commande.</p>
+        </div>
+        <p class="payment-info">En cliquant sur "Procéder au paiement", vous serez redirigé vers HelloAsso pour procéder au paiement et votre commande sera enregistrée.</p>
         <p class="payment-warning">Merci de choisir un montant <strong>supérieur ou égal à {{ formatPrice(cartStore.totalAmount) }}</strong></p>
-        <button @click="redirectToPayment" class="btn btn-primary">Procéder au paiement</button>
+        <div class="modal-actions">
+          <button @click="showPaymentRedirect = false; showCheckoutForm = true" class="btn btn-secondary">Modifier</button>
+          <button @click="confirmAndRedirectToPayment" :disabled="submitting" class="btn btn-primary">
+            <span v-if="!submitting">Procéder au paiement</span>
+            <span v-else>Enregistrement...</span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -147,6 +165,12 @@
         <div class="success-icon">✓</div>
         <h2>Commande bien prise en compte !</h2>
         <p>Merci pour votre soutien ! Vous recevrez un email de confirmation.</p>
+        <div class="delivery-info">
+          <p><strong>📦 Informations de livraison :</strong></p>
+          <p>Les commandes partiront en production début janvier.</p>
+          <p>La livraison est prévue pour <strong>fin janvier / début février</strong>.</p>
+          <p>Vous serez tenu au courant par email de l'avancement de votre commande.</p>
+        </div>
         <button @click="closeSuccessModal" class="btn btn-primary">Fermer</button>
       </div>
     </div>
@@ -198,6 +222,18 @@ const formatPrice = (price) => {
 }
 
 const submitOrder = async () => {
+  // Validation simple du formulaire
+  submitting.value = true
+  
+  // Simuler une petite vérification
+  await new Promise(resolve => setTimeout(resolve, 300))
+  
+  submitting.value = false
+  showCheckoutForm.value = false
+  showPaymentRedirect.value = true
+}
+
+const confirmAndRedirectToPayment = async () => {
   try {
     submitting.value = true
     
@@ -217,20 +253,20 @@ const submitOrder = async () => {
     const response = await orderService.createOrder(orderData)
     lastOrderId.value = response.data.id
     
-    showCheckoutForm.value = false
-    showPaymentRedirect.value = true
+    // Ouvrir HelloAsso dans un nouvel onglet
+    window.open('https://www.helloasso.com/associations/la-4l-des-domes/formulaires/1', '_blank')
+    
+    // Afficher le modal de succès
+    showPaymentRedirect.value = false
+    orderSuccess.value = true
   } catch (err) {
-    alert('Erreur lors de la commande. Veuillez réessayer.')
+    alert('Erreur lors de l\'enregistrement de la commande. Veuillez réessayer.')
     console.error('Error submitting order:', err)
+    showPaymentRedirect.value = false
+    showCheckoutForm.value = true
   } finally {
     submitting.value = false
   }
-}
-
-const redirectToPayment = () => {
-  window.open('https://www.helloasso.com/associations/la-4l-des-domes/formulaires/1', '_blank')
-  showPaymentRedirect.value = false
-  orderSuccess.value = true
 }
 
 const closeSuccessModal = () => {
@@ -242,8 +278,6 @@ const closeSuccessModal = () => {
   orderForm.shippingAddress = ''
   router.push('/boutique')
 }
-
-
 
 onMounted(() => {
   document.title = 'Mon Panier - 4L des Dômes'
@@ -707,6 +741,58 @@ onMounted(() => {
 .payment-warning strong {
   color: var(--primary-color);
   font-size: 18px;
+}
+
+.delivery-info {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.delivery-info p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.delivery-info p:first-child {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.order-summary-details {
+  text-align: left;
+  background: var(--light-color);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.order-summary-details p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: var(--dark-color);
+}
+
+.order-summary-details strong {
+  display: inline-block;
+  min-width: 120px;
+  color: #666;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  flex: 1;
+  max-width: 200px;
 }
 
 @media (max-width: 968px) {

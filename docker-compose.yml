@@ -60,6 +60,28 @@ services:
       - shared-network
     restart: unless-stopped
 
+  db-backup:
+    image: postgres:16-alpine
+    container_name: fourltrophy-db-backup
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./backups:/backups
+      - ./backups/backup.sh:/backup.sh:ro
+    networks:
+      - fourltrophy-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint: >
+      sh -c "
+      echo '0 0 * * * /backup.sh >> /backups/backup.log 2>&1' > /etc/crontabs/root &&
+      crond -f -l 2
+      "
+    restart: unless-stopped
+
 volumes:
   postgres_data:
     driver: local

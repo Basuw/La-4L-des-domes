@@ -1,0 +1,2 @@
+# Dossier de sauvegarde automatique de la base de données
+# Les fichiers .sql.gz sont ignorés par git (voir .gitignore)
