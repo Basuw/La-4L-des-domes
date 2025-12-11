@@ -4,31 +4,6 @@
       <div class="container">
         <h1 class="animate__animated animate__fadeInDown">Boutique</h1>
         <p class="shop-subtitle">Soutenez notre projet en achetant nos t-shirts exclusifs</p>
-        
-        <div class="countdown-timer" data-aos="zoom-in">
-          <h2 class="countdown-title">Ouverture de la boutique dans :</h2>
-          <div class="timer-container">
-            <div class="time-block">
-              <div class="time-value">{{ countdown.days }}</div>
-              <div class="time-label">Jours</div>
-            </div>
-            <div class="time-separator">:</div>
-            <div class="time-block">
-              <div class="time-value">{{ countdown.hours }}</div>
-              <div class="time-label">Heures</div>
-            </div>
-            <div class="time-separator">:</div>
-            <div class="time-block">
-              <div class="time-value">{{ countdown.minutes }}</div>
-              <div class="time-label">Minutes</div>
-            </div>
-            <div class="time-separator">:</div>
-            <div class="time-block">
-              <div class="time-value">{{ countdown.seconds }}</div>
-              <div class="time-label">Secondes</div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -53,7 +28,7 @@
           >
             <router-link :to="`/produit/${product.id}`" class="product-image-link">
               <div class="product-image">
-                <img :src="product.colors[0].preview" :alt="product.name">
+                <img :src="product.colors[0].frontImage" :alt="product.name">
                 <div class="view-details-overlay">
                   <span class="view-icon">👁️</span>
                   <span>Voir les détails</span>
@@ -107,47 +82,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useCartStore } from '../stores/cart'
 import { productService } from '../services/api'
 
 const cartStore = useCartStore()
-const products = ref([
-  {
-    id: 1,
-    name: 'T-shirt 4L des Dômes',
-    description: 'T-shirt en coton bio avec notre design exclusif',
-    price: 25,
-    colors: [
-      { name: 'White', label: 'Blanc', hex: '#FFFFFF', preview: '/clothes/front-white-t-shirt.png' },
-      { name: 'Black', label: 'Noir', hex: '#000000', preview: '/clothes/front-black-t-shirt.png' }
-    ],
-    stock: 100
-  },
-  {
-    id: 2,
-    name: 'Pull 4L des Dômes',
-    description: 'Pull confortable avec notre design exclusif',
-    price: 40,
-    colors: [
-      { name: 'Beige', label: 'Beige', hex: '#D4C5B9', preview: '/clothes/front-beige-pull.png' },
-      { name: 'Blue', label: 'Bleu', hex: '#4A90E2', preview: '/clothes/front-blue-pull.png' }
-    ],
-    stock: 100
-  }
-])
-const loading = ref(false)
+const products = ref([])
+const loading = ref(true)
 const error = ref(null)
-
-const endTime = new Date('2025-11-28T18:00:00').getTime()
-const countdown = ref({
-  days: 0,
-  hours: 0,
-  minutes: 0,
-  seconds: 0
-})
-
-let countdownInterval = null
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat('fr-FR', {
@@ -156,36 +98,23 @@ const formatPrice = (price) => {
   }).format(price)
 }
 
-const updateCountdown = () => {
-  const now = new Date().getTime()
-  const distance = endTime - now
-
-  if (distance < 0) {
-    countdown.value = { days: 0, hours: 0, minutes: 0, seconds: 0 }
-    if (countdownInterval) {
-      clearInterval(countdownInterval)
-    }
-    return
-  }
-
-  countdown.value = {
-    days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-    minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-    seconds: Math.floor((distance % (1000 * 60)) / 1000)
+const loadProducts = async () => {
+  try {
+    loading.value = true
+    error.value = null
+    const response = await productService.getAllProducts()
+    products.value = response.data
+  } catch (err) {
+    error.value = 'Impossible de charger les produits. Veuillez réessayer.'
+    console.error('Erreur lors du chargement des produits:', err)
+  } finally {
+    loading.value = false
   }
 }
 
 onMounted(() => {
   document.title = 'Boutique - 4L des Dômes'
-  updateCountdown()
-  countdownInterval = setInterval(updateCountdown, 1000)
-})
-
-onUnmounted(() => {
-  if (countdownInterval) {
-    clearInterval(countdownInterval)
-  }
+  loadProducts()
 })
 </script>
 
@@ -537,35 +466,6 @@ onUnmounted(() => {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
   }
-
-  .countdown-timer {
-    padding: 25px;
-  }
-
-  .countdown-title {
-    font-size: 26px;
-  }
-
-  .timer-container {
-    gap: 12px;
-  }
-
-  .time-block {
-    min-width: 80px;
-    padding: 18px 15px;
-  }
-
-  .time-value {
-    font-size: 40px;
-  }
-
-  .time-label {
-    font-size: 12px;
-  }
-
-  .time-separator {
-    font-size: 40px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -575,35 +475,6 @@ onUnmounted(() => {
 
   .products-grid {
     grid-template-columns: 1fr;
-  }
-
-  .countdown-timer {
-    padding: 20px;
-  }
-
-  .countdown-title {
-    font-size: 22px;
-  }
-
-  .timer-container {
-    gap: 8px;
-  }
-
-  .time-block {
-    min-width: 65px;
-    padding: 15px 10px;
-  }
-
-  .time-value {
-    font-size: 32px;
-  }
-
-  .time-label {
-    font-size: 10px;
-  }
-
-  .time-separator {
-    font-size: 32px;
   }
 
   .product-card {
@@ -635,73 +506,8 @@ onUnmounted(() => {
   .products-section {
     padding: 40px 15px;
   }
-
-  .countdown-timer {
-    padding: 15px;
-  }
-
-  .countdown-title {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-
-  .timer-container {
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .time-block {
-    min-width: 60px;
-    padding: 12px 8px;
-  }
-
-  .time-value {
-    font-size: 28px;
-  }
-
-  .time-label {
-    font-size: 9px;
-  }
-
-  .time-separator {
-    font-size: 28px;
-  }
-
-  .time-separator:nth-child(5) {
-    width: 100%;
-    text-align: center;
-    margin: 5px 0;
-  }
 }
 
 @media (max-width: 768px) {
-  .countdown-timer {
-    padding: 20px;
-  }
-
-  .countdown-title {
-    font-size: 24px;
-  }
-
-  .timer-container {
-    gap: 10px;
-  }
-
-  .time-block {
-    min-width: 70px;
-    padding: 15px 10px;
-  }
-
-  .time-value {
-    font-size: 32px;
-  }
-
-  .time-label {
-    font-size: 10px;
-  }
-
-  .time-separator {
-    font-size: 32px;
-  }
 }
 </style>

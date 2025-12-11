@@ -153,8 +153,8 @@
             :disabled="!selectedSize || !selectedColor || product.stock === 0"
             class="btn btn-primary add-to-cart-main"
           >
-            <span class="btn-icon">🔒</span>
-            <span>Boutique fermée</span>
+            <span class="btn-icon">🛒</span>
+            <span>Ajouter au panier</span>
           </button>
 
           <div class="product-specs">
@@ -257,31 +257,6 @@ const rotation = ref(0)
 const autoRotate = ref(true)
 const showSuccessToast = ref(false)
 
-const productData = {
-  1: {
-    id: 1,
-    name: 'T-shirt 4L des Dômes',
-    description: 'T-shirt en coton bio avec notre design exclusif. Confortable et résistant, parfait pour soutenir notre aventure !',
-    price: 25,
-    stock: 100,
-    colors: [
-      { name: 'White', label: 'Blanc', hex: '#FFFFFF', frontImage: '/clothes/front-white-t-shirt.png', backImage: '/clothes/back-white-t-shirt.png' },
-      { name: 'Black', label: 'Noir', hex: '#000000', frontImage: '/clothes/front-black-t-shirt.png', backImage: '/clothes/back-black-t-shirt.png' }
-    ]
-  },
-  2: {
-    id: 2,
-    name: 'Pull 4L des Dômes',
-    description: 'Pull confortable avec notre design exclusif. Idéal pour les soirées fraîches et pour afficher votre soutien !',
-    price: 40,
-    stock: 100,
-    colors: [
-      { name: 'Beige', label: 'Beige', hex: '#D4C5B9', frontImage: '/clothes/front-beige-pull.png', backImage: '/clothes/back-beige-pull.png' },
-      { name: 'Blue', label: 'Bleu', hex: '#4A90E2', frontImage: '/clothes/front-blue-pull.png', backImage: '/clothes/back-blue-pull.png' }
-    ]
-  }
-}
-
 const sizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL']
 let rotationInterval = null
 
@@ -300,18 +275,15 @@ const loadProduct = async () => {
     const response = await productService.getProductById(route.params.id)
     product.value = response.data
     
-    if (product.value.name.toLowerCase().includes('landscape')) {
-      frontImage.value = '/t-shirt/front-t-shirt-landscape-no-background.png'
-      backImage.value = '/t-shirt/back-t-shirt-landscape-no-background.png'
-    } else if (product.value.name.toLowerCase().includes('sponsor')) {
-      frontImage.value = '/t-shirt/front-t-shirt-sponsor-no-background.png'
-      backImage.value = '/t-shirt/back-t-shirt-sponsor-no-background.png'
+    if (product.value.colors && product.value.colors.length > 0) {
+      selectedColor.value = product.value.colors[0]
     }
   } catch (err) {
     error.value = 'Produit introuvable'
+    console.error('Error loading product:', err)
+  } finally {
+    loading.value = false
   }
-  
-  loading.value = false
 }
 
 const stockClass = computed(() => {
