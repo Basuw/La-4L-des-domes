@@ -163,25 +163,44 @@
               Caractéristiques techniques
             </h3>
             
-            <div class="spec-item">
-              <span class="spec-label">Grammage</span>
-              <span class="spec-value">190 g/m² Couleurs, 185 g/m² Blanc</span>
-            </div>
+            <template v-if="product.name.toLowerCase().includes('t-shirt')">
+              <div class="spec-item">
+                <span class="spec-label">Composition</span>
+                <span class="spec-value">100% coton pré-rétréci à fil de chaîne continu ring-spun (sauf coloris Ash : 99% coton pré-rétréci à fil de chaîne continu / 1% viscose et Sport Grey : 85% coton pré-rétréci à fil de chaîne continu / 15% viscose)</span>
+              </div>
+              
+              <div class="spec-item">
+                <span class="spec-label">Caractéristiques</span>
+                <span class="spec-value">Bande de propreté au col. Fines finitions en bord-côte pour un look moderne. Construction tubulaire. Coupe classique contemporaine. Étiquette satinée.</span>
+              </div>
+              
+              <div class="spec-item">
+                <span class="spec-label">Tags</span>
+                <span class="spec-value">#tshirtbasique #tendance #ringspun</span>
+              </div>
+              
+              <div class="spec-item">
+                <span class="spec-label">Entretien</span>
+                <span class="spec-value">Lavage en machine à 40°C max. Pas de blanchiment. Sèche-linge autorisé. Repassage à moyenne température (max 150°C). Pas de nettoyage à sec.</span>
+              </div>
+            </template>
             
-            <div class="spec-item">
-              <span class="spec-label">Composition</span>
-              <span class="spec-value">100% Coton jersey pré-rétréci à fil de chaîne continue ring-spun</span>
-            </div>
-            
-            <div class="spec-item">
-              <span class="spec-label">Coupe</span>
-              <span class="spec-value">Coupe droite et encolure ronde imprimée en coton/Lycra®</span>
-            </div>
-            
-            <div class="spec-item">
-              <span class="spec-label">Entretien</span>
-              <span class="spec-value">Lavage machine 40° et repassage sur l'envers. Évitez le sèche-linge.</span>
-            </div>
+            <template v-else-if="product.name.toLowerCase().includes('pull')">
+              <div class="spec-item">
+                <span class="spec-label">Composition</span>
+                <span class="spec-value">50% coton ring-spun / 50% polyester recyclé post consumer</span>
+              </div>
+              
+              <div class="spec-item">
+                <span class="spec-label">Caractéristiques</span>
+                <span class="spec-value">Molleton gratté. Coupe straight. Coupé cousu. Bord-côte 2x1 montage tubulaire pour une meilleure finition au col, bas de manches et de vêtement. Poche kangourou. Capuche doublée polycoton jersey avec cordon de serrage plat. Bande de propreté jersey ton sur ton intérieur col.</span>
+              </div>
+              
+              <div class="spec-item">
+                <span class="spec-label">Étiquette</span>
+                <span class="spec-value">Pas d'étiquette de marque au col, uniquement une puce de taille pour faciliter la personnalisation.</span>
+              </div>
+            </template>
           </div>
 
           <div class="product-benefits">

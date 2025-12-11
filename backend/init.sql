@@ -53,7 +53,7 @@ CREATE TABLE order_items (
 
 -- Insert initial products
 INSERT INTO products (name, description, price, stock, created_at) VALUES
-('T-shirt 4L des Dômes', 'T-shirt en coton bio avec notre design exclusif. Confortable et résistant, parfait pour soutenir notre aventure !', 25.00, 100, CURRENT_TIMESTAMP),
+('T-shirt 4L des Dômes', 'T-shirt en coton bio avec notre design exclusif. Confortable et résistant, parfait pour soutenir notre aventure !', 20, 100, CURRENT_TIMESTAMP),
 ('Pull 4L des Dômes', 'Pull confortable avec notre design exclusif. Idéal pour les soirées fraîches et pour afficher votre soutien !', 35.00, 100, CURRENT_TIMESTAMP);
 
 -- Insert colors for T-shirt (product_id = 1)
