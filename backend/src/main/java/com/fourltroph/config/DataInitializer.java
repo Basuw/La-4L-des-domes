@@ -41,7 +41,7 @@ public class DataInitializer implements CommandLineRunner {
         Product tshirt = Product.builder()
                 .name("T-Shirt 4L Trophy")
                 .description("T-shirt officiel du 4L Trophy avec le logo emblématique")
-                .price(new BigDecimal("25.00"))
+                .price(new BigDecimal("20.00"))
                 .stock(100)
                 .size("M")
                 .colors(new ArrayList<>())

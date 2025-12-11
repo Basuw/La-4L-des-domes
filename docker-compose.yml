@@ -34,9 +34,8 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       CORS_ORIGINS: ${CORS_ORIGINS}
       SERVER_PORT: ${SERVER_PORT}
-    # Port non exposé - accessible uniquement via le réseau Docker
-    expose:
-      - "${SERVER_PORT}"
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -70,3 +69,4 @@ networks:
     driver: bridge
   shared-network:
     external: true
+    name: shared-network

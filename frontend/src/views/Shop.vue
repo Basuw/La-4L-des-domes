@@ -28,7 +28,7 @@
           >
             <router-link :to="`/produit/${product.id}`" class="product-image-link">
               <div class="product-image">
-                <img :src="product.colors[0].preview" :alt="product.name">
+                <img :src="product.colors[0].frontImage" :alt="product.name">
                 <div class="view-details-overlay">
                   <span class="view-icon">👁️</span>
                   <span>Voir les détails</span>
@@ -87,31 +87,8 @@ import { useCartStore } from '../stores/cart'
 import { productService } from '../services/api'
 
 const cartStore = useCartStore()
-const products = ref([
-  {
-    id: 1,
-    name: 'T-shirt 4L des Dômes',
-    description: 'T-shirt en coton bio avec notre design exclusif',
-    price: 25,
-    colors: [
-      { name: 'White', label: 'Blanc', hex: '#FFFFFF', preview: '/clothes/front-white-t-shirt.png' },
-      { name: 'Black', label: 'Noir', hex: '#000000', preview: '/clothes/front-black-t-shirt.png' }
-    ],
-    stock: 100
-  },
-  {
-    id: 2,
-    name: 'Pull 4L des Dômes',
-    description: 'Pull confortable avec notre design exclusif',
-    price: 40,
-    colors: [
-      { name: 'Beige', label: 'Beige', hex: '#D4C5B9', preview: '/clothes/front-beige-pull.png' },
-      { name: 'Blue', label: 'Bleu', hex: '#4A90E2', preview: '/clothes/front-blue-pull.png' }
-    ],
-    stock: 100
-  }
-])
-const loading = ref(false)
+const products = ref([])
+const loading = ref(true)
 const error = ref(null)
 
 const formatPrice = (price) => {
@@ -121,8 +98,23 @@ const formatPrice = (price) => {
   }).format(price)
 }
 
+const loadProducts = async () => {
+  try {
+    loading.value = true
+    error.value = null
+    const response = await productService.getAllProducts()
+    products.value = response.data
+  } catch (err) {
+    error.value = 'Impossible de charger les produits. Veuillez réessayer.'
+    console.error('Erreur lors du chargement des produits:', err)
+  } finally {
+    loading.value = false
+  }
+}
+
 onMounted(() => {
   document.title = 'Boutique - 4L des Dômes'
+  loadProducts()
 })
 </script>
 
@@ -147,6 +139,73 @@ onMounted(() => {
 .shop-subtitle {
   font-size: 20px;
   opacity: 0.9;
+  margin-bottom: 40px;
+}
+
+.countdown-timer {
+  margin-top: 40px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.countdown-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.time-block {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  min-width: 100px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.time-block:hover {
+  transform: translateY(-5px);
+}
+
+.time-value {
+  font-size: 48px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.time-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.time-separator {
+  font-size: 48px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .products-section {
@@ -407,35 +466,6 @@ onMounted(() => {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
   }
-
-  .countdown-timer {
-    padding: 25px;
-  }
-
-  .countdown-title {
-    font-size: 26px;
-  }
-
-  .timer-container {
-    gap: 12px;
-  }
-
-  .time-block {
-    min-width: 80px;
-    padding: 18px 15px;
-  }
-
-  .time-value {
-    font-size: 40px;
-  }
-
-  .time-label {
-    font-size: 12px;
-  }
-
-  .time-separator {
-    font-size: 40px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -445,35 +475,6 @@ onMounted(() => {
 
   .products-grid {
     grid-template-columns: 1fr;
-  }
-
-  .countdown-timer {
-    padding: 20px;
-  }
-
-  .countdown-title {
-    font-size: 22px;
-  }
-
-  .timer-container {
-    gap: 8px;
-  }
-
-  .time-block {
-    min-width: 65px;
-    padding: 15px 10px;
-  }
-
-  .time-value {
-    font-size: 32px;
-  }
-
-  .time-label {
-    font-size: 10px;
-  }
-
-  .time-separator {
-    font-size: 32px;
   }
 
   .product-card {
@@ -505,42 +506,8 @@ onMounted(() => {
   .products-section {
     padding: 40px 15px;
   }
+}
 
-  .countdown-timer {
-    padding: 15px;
-  }
-
-  .countdown-title {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-
-  .timer-container {
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .time-block {
-    min-width: 60px;
-    padding: 12px 8px;
-  }
-
-  .time-value {
-    font-size: 28px;
-  }
-
-  .time-label {
-    font-size: 9px;
-  }
-
-  .time-separator {
-    font-size: 28px;
-  }
-
-  .time-separator:nth-child(5) {
-    width: 100%;
-    text-align: center;
-    margin: 5px 0;
-  }
+@media (max-width: 768px) {
 }
 </style>
