@@ -253,12 +253,26 @@ const confirmAndRedirectToPayment = async () => {
     const response = await orderService.createOrder(orderData)
     lastOrderId.value = response.data.id
     
-    // Ouvrir HelloAsso dans un nouvel onglet
-    window.open('https://www.helloasso.com/associations/la-4l-des-domes/formulaires/1', '_blank')
+    const helloAssoUrl = 'https://www.helloasso.com/associations/la-4l-des-domes/formulaires/1'
     
-    // Afficher le modal de succès
-    showPaymentRedirect.value = false
-    orderSuccess.value = true
+    // Tenter d'ouvrir dans un nouvel onglet
+    const newWindow = window.open(helloAssoUrl, '_blank')
+    
+    // Si le navigateur bloque l'ouverture (ex: Instagram), rediriger directement
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+      // Afficher d'abord le modal de succès
+      showPaymentRedirect.value = false
+      orderSuccess.value = true
+      
+      // Attendre 1 seconde pour que l'utilisateur voie le modal
+      setTimeout(() => {
+        window.location.href = helloAssoUrl
+      }, 1000)
+    } else {
+      // L'ouverture a réussi, afficher le modal normalement
+      showPaymentRedirect.value = false
+      orderSuccess.value = true
+    }
   } catch (err) {
     alert('Erreur lors de l\'enregistrement de la commande. Veuillez réessayer.')
     console.error('Error submitting order:', err)
