@@ -4,6 +4,37 @@
       <div class="container">
         <h1 class="animate__animated animate__fadeInDown">Boutique</h1>
         <p class="shop-subtitle">Soutenez notre projet en achetant nos t-shirts exclusifs</p>
+        
+        <div class="countdown-timer" v-if="!isCountdownExpired">
+          <div class="countdown-title">⏰ Fermeture de la boutique dans :</div>
+          <div class="timer-container">
+            <div class="time-block">
+              <div class="time-value">{{ days }}</div>
+              <div class="time-label">Jours</div>
+            </div>
+            <div class="time-separator">:</div>
+            <div class="time-block">
+              <div class="time-value">{{ hours }}</div>
+              <div class="time-label">Heures</div>
+            </div>
+            <div class="time-separator">:</div>
+            <div class="time-block">
+              <div class="time-value">{{ minutes }}</div>
+              <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-separator">:</div>
+            <div class="time-block">
+              <div class="time-value">{{ seconds }}</div>
+              <div class="time-label">Secondes</div>
+            </div>
+          </div>
+          <p class="countdown-message">🚨 Après cette date, la boutique sera fermée et il ne sera plus possible d'acheter nos produits</p>
+        </div>
+        
+        <div class="countdown-expired" v-else>
+          <h2>🔒 Boutique Fermée</h2>
+          <p>La période de vente est terminée. Merci pour votre soutien !</p>
+        </div>
       </div>
     </section>
 
@@ -82,7 +113,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useCartStore } from '../stores/cart'
 import { productService } from '../services/api'
 
@@ -90,6 +121,34 @@ const cartStore = useCartStore()
 const products = ref([])
 const loading = ref(true)
 const error = ref(null)
+
+// Countdown timer
+const countdownDate = new Date('January 15, 2026 18:00:00').getTime()
+const days = ref(0)
+const hours = ref(0)
+const minutes = ref(0)
+const seconds = ref(0)
+const isCountdownExpired = ref(false)
+
+let countdownInterval = null
+
+const updateCountdown = () => {
+  const now = new Date().getTime()
+  const distance = countdownDate - now
+
+  if (distance < 0) {
+    isCountdownExpired.value = true
+    if (countdownInterval) {
+      clearInterval(countdownInterval)
+    }
+    return
+  }
+
+  days.value = Math.floor(distance / (1000 * 60 * 60 * 24))
+  hours.value = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  minutes.value = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+  seconds.value = Math.floor((distance % (1000 * 60)) / 1000)
+}
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat('fr-FR', {
@@ -115,6 +174,16 @@ const loadProducts = async () => {
 onMounted(() => {
   document.title = 'Boutique - 4L des Dômes'
   loadProducts()
+  
+  // Start countdown
+  updateCountdown()
+  countdownInterval = setInterval(updateCountdown, 1000)
+})
+
+onUnmounted(() => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval)
+  }
 })
 </script>
 
@@ -206,6 +275,40 @@ onMounted(() => {
   font-weight: 900;
   color: white;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.countdown-message {
+  margin-top: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  background: rgba(231, 76, 60, 0.2);
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(231, 76, 60, 0.4);
+}
+
+.countdown-expired {
+  margin-top: 40px;
+  padding: 40px;
+  background: rgba(231, 76, 60, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  border: 2px solid rgba(231, 76, 60, 0.4);
+  text-align: center;
+}
+
+.countdown-expired h2 {
+  font-size: 36px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.countdown-expired p {
+  font-size: 18px;
+  color: white;
+  opacity: 0.9;
 }
 
 .products-section {

@@ -84,13 +84,13 @@
           <div class="color-selector">
             <label class="selector-label">
               <span class="icon">🎨</span>
-              Couleur
+              Couleur : <strong>{{ selectedColor?.label }}</strong>
             </label>
             <div class="color-options">
               <button 
                 v-for="color in product.colors" 
                 :key="color.name"
-                @click="selectedColor = color"
+                @click="changeColor(color)"
                 :class="{ active: selectedColor?.name === color.name }"
                 class="color-btn"
                 :title="color.label"
@@ -103,6 +103,7 @@
                   }"
                 ></div>
                 <span class="color-name">{{ color.label }}</span>
+                <span v-if="selectedColor?.name === color.name" class="check-icon">✓</span>
               </button>
             </div>
           </div>
@@ -348,6 +349,13 @@ const decrementQuantity = () => {
   if (quantity.value > 1) {
     quantity.value--
   }
+}
+
+const changeColor = (color) => {
+  selectedColor.value = color
+  // Reset rotation to show front when color changes
+  rotation.value = 0
+  stopAutoRotate()
 }
 
 const addToCart = () => {
@@ -722,6 +730,7 @@ onUnmounted(() => {
   border-color: var(--primary-color);
   color: white;
   transform: scale(1.05);
+  position: relative;
 }
 
 .color-circle {
@@ -729,10 +738,21 @@ onUnmounted(() => {
   height: 32px;
   border-radius: 50%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.color-btn:hover .color-circle {
+  transform: scale(1.1);
 }
 
 .color-name {
   font-size: 14px;
+}
+
+.check-icon {
+  font-size: 18px;
+  font-weight: 900;
+  margin-left: auto;
 }
 
 .size-selector {

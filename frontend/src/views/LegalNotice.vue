@@ -80,7 +80,7 @@ onMounted(() => {
           <div class="price-table">
             <div class="price-row">
               <span class="product-name">T-shirt</span>
-              <span class="product-price">25 € TTC</span>
+              <span class="product-price">20 € TTC</span>
             </div>
             <div class="price-row">
               <span class="product-name">Pull (Sweat-shirt)</span>
