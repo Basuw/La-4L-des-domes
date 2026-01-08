@@ -84,7 +84,7 @@ onMounted(() => {
             </div>
             <div class="price-row">
               <span class="product-name">Pull (Sweat-shirt)</span>
-              <span class="product-price">40 € TTC</span>
+              <span class="product-price">35 € TTC</span>
             </div>
             <div class="price-row highlight">
               <span class="product-name">Frais de livraison</span>

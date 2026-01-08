@@ -1098,6 +1098,33 @@ onUnmounted(() => {
   .price {
     font-size: 32px;
   }
+
+  .color-selector,
+  .size-selector,
+  .quantity-section {
+    padding: 15px;
+  }
+
+  .color-btn {
+    padding: 10px 15px;
+    gap: 8px;
+    flex: 1;
+    min-width: calc(50% - 6px);
+    justify-content: center;
+  }
+
+  .color-circle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .color-name {
+    font-size: 13px;
+  }
+
+  .check-icon {
+    font-size: 16px;
+  }
   
   .tshirt-3d {
     height: 350px;
@@ -1208,9 +1235,47 @@ onUnmounted(() => {
     font-size: 10px;
   }
 
+  .color-selector,
   .size-selector,
   .quantity-section {
-    padding: 15px;
+    padding: 12px;
+  }
+
+  .selector-label {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .selector-label .icon {
+    font-size: 18px;
+  }
+
+  .color-options {
+    gap: 8px;
+  }
+
+  .color-btn {
+    padding: 8px 12px;
+    gap: 6px;
+    min-width: 100%;
+    font-size: 14px;
+  }
+
+  .color-circle {
+    width: 24px;
+    height: 24px;
+  }
+
+  .color-name {
+    font-size: 12px;
+  }
+
+  .check-icon {
+    font-size: 14px;
+  }
+
+  .size-options {
+    gap: 8px;
   }
 
   .size-btn {

@@ -561,6 +561,36 @@ onUnmounted(() => {
     font-size: 18px;
   }
 
+  .countdown-timer {
+    padding: 30px 20px;
+  }
+
+  .countdown-title {
+    font-size: 24px;
+  }
+
+  .timer-container {
+    gap: 12px;
+  }
+
+  .time-block {
+    padding: 15px 10px;
+    min-width: 80px;
+  }
+
+  .time-value {
+    font-size: 36px;
+  }
+
+  .time-separator {
+    font-size: 36px;
+  }
+
+  .countdown-message {
+    font-size: 14px;
+    padding: 12px 15px;
+  }
+
   .products-section {
     padding: 60px 20px;
   }
@@ -574,6 +604,60 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   .shop-hero h1 {
     font-size: 36px;
+  }
+
+  .countdown-timer {
+    padding: 25px 15px;
+    border-radius: 20px;
+  }
+
+  .countdown-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .timer-container {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .time-block {
+    padding: 12px 8px;
+    min-width: 70px;
+    border-radius: 12px;
+  }
+
+  .time-value {
+    font-size: 28px;
+  }
+
+  .time-label {
+    font-size: 11px;
+    margin-top: 5px;
+  }
+
+  .time-separator {
+    font-size: 28px;
+  }
+
+  .countdown-message {
+    font-size: 13px;
+    padding: 10px 12px;
+    margin-top: 20px;
+  }
+
+  .countdown-expired {
+    padding: 30px 20px;
+    margin-top: 30px;
+  }
+
+  .countdown-expired h2 {
+    font-size: 28px;
+  }
+
+  .countdown-expired p {
+    font-size: 16px;
   }
 
   .products-grid {
@@ -599,18 +683,74 @@ onUnmounted(() => {
   }
 
   .shop-hero h1 {
-    font-size: 32px;
+    font-size: 28px;
   }
 
   .shop-subtitle {
-    font-size: 16px;
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
+
+  .countdown-timer {
+    padding: 20px 12px;
+    margin-top: 30px;
+    border-radius: 15px;
+  }
+
+  .countdown-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .timer-container {
+    gap: 6px;
+  }
+
+  .time-block {
+    padding: 10px 6px;
+    min-width: 60px;
+    border-radius: 10px;
+  }
+
+  .time-value {
+    font-size: 24px;
+  }
+
+  .time-label {
+    font-size: 10px;
+    margin-top: 4px;
+  }
+
+  .time-separator {
+    font-size: 24px;
+    display: none;
+  }
+
+  .countdown-message {
+    font-size: 12px;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 10px;
+    line-height: 1.5;
+  }
+
+  .countdown-expired {
+    padding: 25px 15px;
+    margin-top: 25px;
+    border-radius: 20px;
+  }
+
+  .countdown-expired h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .countdown-expired p {
+    font-size: 14px;
   }
 
   .products-section {
     padding: 40px 15px;
   }
-}
-
-@media (max-width: 768px) {
 }
 </style>
