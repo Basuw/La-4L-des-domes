@@ -16,7 +16,7 @@ Une boutique épurée et efficace pour vendre vos t-shirts et pulls à vos souti
 
 ![Panier](res/screenshots/panier.png)
 
-Tunnel d'achat fluide : panier récapitulatif, livraison gratuite, paiement sécurisé via Stripe. Vos acheteurs passent commande en moins d'une minute.
+Tunnel d'achat fluide : panier récapitulatif, livraison gratuite, paiement sécurisé via HelloAsso. Vos acheteurs passent commande en moins d'une minute.
 
 ---
 
